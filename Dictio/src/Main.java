@@ -8,6 +8,7 @@ public class Main {
 
 
 	public static void main(String[] args) {  
+<<<<<<< HEAD
 		JFrame frame = new JFrame("Dictio");
 		
 		JButton btnCharger = new JButton("Charger");//creating instance of JButton  
@@ -32,5 +33,17 @@ public class Main {
 		frame.setSize(1000,600);//400 width and 500 height  
 		frame.setLayout(null);//using no layout managers  
 		frame.setVisible(true);//making the frame visible 
+=======
+		JFrame f=new JFrame();//creating instance of JFrame  
+		          
+		JButton b=new JButton("click");//creating instance of JButton  
+		b.setBounds(130,100,100, 40);//x axis, y axis, width, height  
+		          
+		f.add(b);//adding button in JFrame  
+		          
+		f.setSize(400,500);//400 width and 500 height  
+		f.setLayout(null);//using no layout managers  
+		f.setVisible(true);//making the frame visible 
+>>>>>>> branch 'master' of https://github.com/ced210/Laboratoire5Dictio.git
 	}
 }
