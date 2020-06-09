@@ -8,18 +8,29 @@ public class Main {
 
 
 	public static void main(String[] args) {  
-		JFrame f=new JFrame("Dictio");//creating instance of JFrame  
-		          
-		JButton b = new JButton("Charger");//creating instance of JButton  
-		JButton b2 = new JButton("Enregistrer");//creating instance of JButton  
-		b.setBounds(395,10,100, 30);//x axis, y axis, width, height  
-		b2.setBounds(505,10,100, 30);//x axis, y axis, width, height  
-		         
-		f.add(b);//adding button in JFrame  
-		f.add(b2);//adding button in JFrame  
-		   
-		f.setSize(1000,600);//400 width and 500 height  
-		f.setLayout(null);//using no layout managers  
-		f.setVisible(true);//making the frame visible 
+		JFrame frame = new JFrame("Dictio");
+		
+		JButton btnCharger = new JButton("Charger");//creating instance of JButton  
+		JButton btnEnregistrer = new JButton("Enregistrer");//creating instance of JButton 
+		JTextField txfSearch = new JTextField();
+		JTextField txfRelated = new JTextField();
+		JTextField txfDescription = new JTextField();
+		JLabel labelSearch = new JLabel("Search");
+		
+		labelSearch.setBounds(10, 20, 100, 20);
+		btnCharger.setBounds(395,10,100, 30);//x axis, y axis, width, height  
+		btnEnregistrer.setBounds(505,10,100, 30);//x axis, y axis, width, height  
+		txfSearch.setBounds(10,50,300,30);  
+		txfRelated.setBounds(10,80,300,90);
+		txfDescription.setBounds(310,50,400,120);
+		frame.add(btnCharger);//adding button in Jframerame  
+		frame.add(btnEnregistrer);//adding button in JFrame  
+		frame.add(txfSearch);  
+		frame.add(labelSearch);
+		frame.add(txfDescription);
+		frame.add(txfRelated);
+		frame.setSize(1000,600);//400 width and 500 height  
+		frame.setLayout(null);//using no layout managers  
+		frame.setVisible(true);//making the frame visible 
 	}
 }
