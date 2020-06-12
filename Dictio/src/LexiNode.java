@@ -15,8 +15,8 @@ public class LexiNode {
 	}
 
 	public LexiNode(char letter) {
-		// TODO Auto-generated constructor stub
 		this.mLetter = letter;
+		this.children = new ArrayList<>();
 	}
 	
 	public void addChild(char letter) {

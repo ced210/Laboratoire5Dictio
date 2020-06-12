@@ -1,4 +1,8 @@
+import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import javax.swing.*;
+import javax.swing.event.AncestorListener;
 
 public class Main {
 
@@ -6,11 +10,11 @@ public class Main {
 		// TODO Auto-generated constructor stub
 	}
 
+	public static void main(String[] args) {
+		initialiseDictionary();
 
-	public static void main(String[] args) {  
 		JFrame frame = new JFrame("Dictio");
-		
-		JButton btnCharger = new JButton("Charger");//creating instance of JButton  
+		JButton btnCharger = new JButton("Charger");// creating instance of JButton
 		JButton btnEnregistrer = new JButton("Enregistrer");//creating instance of JButton 
 		JTextField txfSearch = new JTextField();
 		JTextField txfRelated = new JTextField();
@@ -33,5 +37,14 @@ public class Main {
 		frame.setLayout(null);//using no layout managers  
 		frame.setVisible(true);//making the frame visible 
 		
+	}
+
+
+	public static void initialiseDictionary() {
+		try {
+			Dictionary d = new Dictionary();
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 }
