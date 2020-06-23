@@ -16,67 +16,82 @@ import javax.swing.event.ListSelectionListener;
 
 public class DictioUI {
     JFrame frame;
-    JButton btnCharger;
-    JButton btnEnregistrer;
+    JButton btnLoad;
+    JButton btnSave;
+    JButton btnAddEdit;
     JTextField txfSearch;
     JTextField txfDescription;
     JLabel labelSearch;
-    JList<Word> list;
+    JList<Word> searchJList;
+    JScrollPane listScroller;
 
     Dictionary dictionary;
 
     public DictioUI() {
         dictionary = new Dictionary();
-    }
-
-    public void display() {
         frame = new JFrame("Dictio");
-        btnCharger = new JButton("Charger");// creating instance of JButton
-        btnEnregistrer = new JButton("Enregistrer");// creating instance of JButton
+        btnLoad = new JButton("Charger");// creating instance of JButton
+        btnSave = new JButton("Enregistrer");// creating instance of JButton
+        btnAddEdit = new JButton("Ajouter / Modifier");// creating instance of JButton
         txfSearch = new JTextField();
         txfDescription = new JTextField();
         labelSearch = new JLabel("Search");
+        searchJList = new JList<Word>();// data
+        listScroller = new JScrollPane(searchJList);
+    }
 
-        var al = dictionary.getAllWords();
-        Word[] arr = new Word[al.size()]; 
-        arr = al.toArray(arr);
-        list = new JList<Word>(arr);// data
-        list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        list.setLayoutOrientation(JList.VERTICAL);
-        list.setVisibleRowCount(-1);
-        JScrollPane listScroller = new JScrollPane(list);
+    public void display() {
+
+        searchJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        searchJList.setLayoutOrientation(JList.VERTICAL);
+        searchJList.setVisibleRowCount(-1);
+        searchJList.setCellRenderer(new WordCellRenderer());
         listScroller.setPreferredSize(new Dimension(250, 80));
-        list.setCellRenderer(new WordCellRenderer());
 
         labelSearch.setBounds(10, 20, 100, 20);
-        btnCharger.setBounds(395, 10, 100, 30);// x axis, y axis, width, height
-        btnEnregistrer.setBounds(505, 10, 100, 30);// x axis, y axis, width, height
+        btnLoad.setBounds(395, 10, 100, 30);// x axis, y axis, width, height
+        btnSave.setBounds(505, 10, 100, 30);
+        btnAddEdit.setBounds(300, 200, 200, 50);
         txfSearch.setBounds(10, 50, 300, 30);
-        list.setBounds(10, 80, 300, 90);
+        searchJList.setBounds(10, 80, 300, 90);
         txfDescription.setBounds(310, 50, 400, 120);
-        frame.add(btnCharger);// adding button in Jframerame
-        frame.add(btnEnregistrer);// adding button in JFrame
+        frame.add(btnLoad);// adding button in Jframerame
+        frame.add(btnSave);
+        frame.add(btnAddEdit);
         frame.add(txfSearch);
         frame.add(labelSearch);
         frame.add(txfDescription);
-        frame.add(list);
-        frame.setSize(1000, 600);// 400 width and 500 height
+        frame.add(searchJList);
+        frame.setSize(1000, 600);
+
+        setSearchListData();
+        addEventListener();
+
         frame.setLayout(null);// using no layout managers
         frame.setVisible(true);// making the frame visible
+    }
 
-        list.addListSelectionListener(new SharedListSelectionHandler());
+    private void addEventListener() {
+        searchJList.addListSelectionListener(new SharedListSelectionHandler());
 
-        btnCharger.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                loadFile();
-            }
+        btnLoad.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) { loadFile(); }
         });
 
-        btnEnregistrer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                saveFile();
-            }
+        btnSave.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) { saveFile(); }
         });
+
+        btnAddEdit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) { addEditWord(); }
+        });
+    }
+
+    private void setSearchListData(){
+        var al = dictionary.getAllWords();
+        Word[] arr = new Word[al.size()]; 
+        arr = al.toArray(arr);
+        searchJList.setListData(arr);
     }
 
     private void loadFile() {
@@ -88,18 +103,24 @@ public class DictioUI {
             if (fileDialog.getFile() != null) {
                 dictionary.loadFile(fileDialog.getFile());
             }
-            var al = dictionary.getAllWords();
-            Word[] arr = new Word[al.size()]; 
-            arr = al.toArray(arr);
-            list.setListData(arr);
+            setSearchListData();
         } catch (Exception e) {
-            showErrorDialog("erreur lors de l'ouverture du fichier");
+            showErrorDialog("Erreur lors de l'ouverture du fichier");
         }
     }
 
     private void saveFile() {
         try {
             dictionary.saveFile();
+        } catch (Exception e) {
+            showErrorDialog(e.getMessage());
+        }
+    }
+
+    private void addEditWord() {
+        try {
+            dictionary.addWord(new Word(txfSearch.getText(), txfDescription.getText()));
+            setSearchListData();
         } catch (Exception e) {
             showErrorDialog(e.getMessage());
         }
@@ -114,9 +135,7 @@ public class DictioUI {
             if (e.getValueIsAdjusting() == false) {
                 JList list = (JList) e.getSource();
                 if (list.getSelectedIndex() != -1) {
-                    Word selectedWord = (Word)list.getSelectedValue();
-                    System.out.println(selectedWord.getWord() + " && " + selectedWord.getDefinition());
-                    txfDescription.setText(selectedWord.getDefinition());
+                    txfDescription.setText(((Word)list.getSelectedValue()).getDefinition());
                 }
             }
         }

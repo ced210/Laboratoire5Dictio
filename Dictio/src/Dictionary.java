@@ -107,7 +107,6 @@ public class Dictionary {
 			printWriter.close();
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
-			e.printStackTrace();
 			throw new IOException("Aucun fichier sélectionné");
 		}
 	}
