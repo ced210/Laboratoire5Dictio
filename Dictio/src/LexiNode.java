@@ -15,6 +15,10 @@ public class LexiNode {
 	public char getLetter() {
 		return this.mLetter;
 	}
+
+	public String getDefinition() {
+		return this.mDefinition;
+	}
 	
 	public void setDefinition(String value) { this.mDefinition = value; }
 
@@ -28,4 +32,6 @@ public class LexiNode {
 		this.children.add(node);
 		return node;
 	}
+
+
 }

@@ -79,6 +79,8 @@ public class Dictionary {
 			while (myReader.hasNextLine()) {
 				String data = myReader.nextLine();
 				System.out.println(data);
+				String[] s = data.split(" & ");
+				addWord(new Word(s[0], s[1]));
 			}
 			myReader.close();
 		} catch(FileNotFoundException e) {
@@ -97,8 +99,8 @@ public class Dictionary {
 	public void saveFile() throws IOException {
 		try {
 			PrintWriter printWriter = new PrintWriter(this.file);
-			for (Word word : getAllWord()) {
-				String s = word.getWord() + " && "+ word.getDefinition();
+			for (Word word : getAllWords()) {
+				String s = word.getWord() + " & "+ word.getDefinition();
 				System.out.println(s);
 				printWriter.write(s);				
 			}
@@ -113,31 +115,23 @@ public class Dictionary {
 	public void addWord(Word word) {
 		for (LexiNode lexiNode : mWords) {
 			if(lexiNode.getLetter() == word.getWord().charAt(0)) {
-				//si prochaine lettre
-				mapWord(new Word(word.getWord().substring(1, word.getWord().length()),
-						word.getDefinition())
-					, lexiNode);
+				Word nextWord = new Word(word.getWord().substring(1, word.getWord().length()), word.getDefinition()); 
+				mapWord(nextWord, lexiNode);
 			}
 		}
 	}
 
 	private void mapWord(Word word, LexiNode node) {
-		//affecter la premiere lettre
-		//Si il y a une prochaine lettre
-			// Si les enfants du noeud ne contient pas la lettre
-				// ajouter la lettre
-			// trouver le node du char
-			//recurc avec la fin du mot et sur les children du Node
-		char letter = word.getWord().charAt(0);
-		if(!node.getChildren().contains(new LexiNode(letter))) {
-			node.addChild(letter);
+		char currentLetter = word.getWord().charAt(0);
+		if(!node.getChildren().stream().anyMatch(n -> n.getLetter() == currentLetter)) {
+			node.addChild(currentLetter);
 		}
 		for (LexiNode lexiNode : node.getChildren()) {
-			if(lexiNode.getLetter() == letter) {
-				if(word.getWord().length() > 1)
-					mapWord(new Word(word.getWord().substring(1, word.getWord().length()),
-							word.getDefinition())
-						, lexiNode);
+			if(lexiNode.getLetter() == currentLetter) {
+				if(word.getWord().length() > 1) {
+					Word nextWord = new Word(word.getWord().substring(1, word.getWord().length()), word.getDefinition());
+					mapWord(nextWord, lexiNode);
+				}
 				else
 					lexiNode.setDefinition(word.getDefinition());
 			}
@@ -149,11 +143,24 @@ public class Dictionary {
 	 * @return une list d'objet de la classe Word
 	 * @see Word
 	*/
-	private ArrayList<Word> getAllWord() {
-		return new ArrayList<Word>() {
-			{
-				add(new Word("avion", "un truc qui vole"));
-			}
-		};
+	public ArrayList<Word> getAllWords() {
+		ArrayList<Word> words = new ArrayList<Word>();
+		for (LexiNode lexiNode : mWords) {
+			ArrayList<Word> nodeWords = getAllWordsRecu(lexiNode, Character.toString(lexiNode.getLetter()));
+			words.addAll(nodeWords);
+		}
+		return words;
 	}
+
+	private ArrayList<Word> getAllWordsRecu(LexiNode lexiNode, String currentWord) {
+		ArrayList<Word> nodeWords = new ArrayList<Word>();
+		for (LexiNode node : lexiNode.getChildren()) {
+			if(node.getDefinition() != null)
+				nodeWords.add(new Word(currentWord + node.getLetter(), node.getDefinition()));
+			else
+				nodeWords.addAll(getAllWordsRecu(node, currentWord + node.getLetter()));
+		}
+		return nodeWords;
+	}
+
 }
