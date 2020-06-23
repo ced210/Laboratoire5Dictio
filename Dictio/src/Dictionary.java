@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.awt.Desktop;
 
 public class Dictionary {
 
@@ -14,43 +15,62 @@ public class Dictionary {
 		return this.mWords;
 	}
 
-	public Dictionary() throws IOException{
-		initialiseDictionary();
-		loadFile("testFile.txt");
+	public Dictionary() {
+		mWords = new ArrayList<>();
+		// initialiseDictionary();
+		// loadFile("testFile.txt");
+		
+	}
+
+	//#region
+	// /**
+	//  * Initialise la liste de noeud du dicy
+	// */
+	// private void initialiseDictionary() {
+	// 	mWords = new ArrayList<>();
+	// 	mWords.add(new LexiNode('a'));
+	// 	mWords.add(new LexiNode('b'));
+	// 	mWords.add(new LexiNode('c'));
+	// 	mWords.add(new LexiNode('d'));
+	// 	mWords.add(new LexiNode('e'));
+	// 	mWords.add(new LexiNode('f'));
+	// 	mWords.add(new LexiNode('g'));
+	// 	mWords.add(new LexiNode('h'));
+	// 	mWords.add(new LexiNode('i'));
+	// 	mWords.add(new LexiNode('j'));
+	// 	mWords.add(new LexiNode('k'));
+	// 	mWords.add(new LexiNode('l'));
+	// 	mWords.add(new LexiNode('m'));
+	// 	mWords.add(new LexiNode('n'));
+	// 	mWords.add(new LexiNode('o'));
+	// 	mWords.add(new LexiNode('p'));
+	// 	mWords.add(new LexiNode('q'));
+	// 	mWords.add(new LexiNode('r'));
+	// 	mWords.add(new LexiNode('s'));
+	// 	mWords.add(new LexiNode('t'));
+	// 	mWords.add(new LexiNode('u'));
+	// 	mWords.add(new LexiNode('v'));
+	// 	mWords.add(new LexiNode('w'));
+	// 	mWords.add(new LexiNode('x'));
+	// 	mWords.add(new LexiNode('y'));
+	// 	mWords.add(new LexiNode('z'));
+	// }
+	//#endregion
+
+	/**
+	 * Ovre l'explorateur de fichier, afin de permettre à l'utilisateur de sélectionner le fichier txt à ouvrir dans le dictionnaire,
+	 * valide aussi le format des donnée?
+	*/
+	// public void openFile() {
+	// 	try {
+	// 		Desktop.getDesktop().open(new File("C:\\"));
+	// 	} catch (IOException e) {
+	// 		e.getMessage();
+	// 	}
 		// File file = new File ("c:");
 		// Desktop desktop = Desktop.getDesktop();
 		// desktop.open(file);
-	}
-
-	private void initialiseDictionary() {
-		mWords = new ArrayList<>();
-		mWords.add(new LexiNode('a'));
-		mWords.add(new LexiNode('b'));
-		mWords.add(new LexiNode('c'));
-		mWords.add(new LexiNode('d'));
-		mWords.add(new LexiNode('e'));
-		mWords.add(new LexiNode('f'));
-		mWords.add(new LexiNode('g'));
-		mWords.add(new LexiNode('h'));
-		mWords.add(new LexiNode('i'));
-		mWords.add(new LexiNode('j'));
-		mWords.add(new LexiNode('k'));
-		mWords.add(new LexiNode('l'));
-		mWords.add(new LexiNode('m'));
-		mWords.add(new LexiNode('n'));
-		mWords.add(new LexiNode('o'));
-		mWords.add(new LexiNode('p'));
-		mWords.add(new LexiNode('q'));
-		mWords.add(new LexiNode('r'));
-		mWords.add(new LexiNode('s'));
-		mWords.add(new LexiNode('t'));
-		mWords.add(new LexiNode('u'));
-		mWords.add(new LexiNode('v'));
-		mWords.add(new LexiNode('w'));
-		mWords.add(new LexiNode('x'));
-		mWords.add(new LexiNode('y'));
-		mWords.add(new LexiNode('z'));
-	}
+	// }
 
 	public void loadFile(String path) {
 		try {

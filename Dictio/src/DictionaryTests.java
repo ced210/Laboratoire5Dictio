@@ -18,4 +18,19 @@ public class DictionaryTests {
          e.getMessage();
       }
    }
+
+   @Test
+   public void testopenFile() {
+      try {
+         Dictionary dictionary = new Dictionary();
+         // dictionary.openFile();
+          
+         
+         assertEquals(true, true);
+
+      } catch (Exception e) {
+         //TODO: handle exception
+         e.getMessage();
+      }
+   }
 }
