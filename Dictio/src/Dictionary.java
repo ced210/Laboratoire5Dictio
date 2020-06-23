@@ -1,9 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.awt.Desktop;
 
 public class Dictionary {
 
@@ -17,9 +17,6 @@ public class Dictionary {
 
 	public Dictionary() {
 		mWords = new ArrayList<>();
-		// initialiseDictionary();
-		// loadFile("testFile.txt");
-		
 	}
 
 	//#region
@@ -61,17 +58,6 @@ public class Dictionary {
 	 * Ovre l'explorateur de fichier, afin de permettre à l'utilisateur de sélectionner le fichier txt à ouvrir dans le dictionnaire,
 	 * valide aussi le format des donnée?
 	*/
-	// public void openFile() {
-	// 	try {
-	// 		Desktop.getDesktop().open(new File("C:\\"));
-	// 	} catch (IOException e) {
-	// 		e.getMessage();
-	// 	}
-		// File file = new File ("c:");
-		// Desktop desktop = Desktop.getDesktop();
-		// desktop.open(file);
-	// }
-
 	public void loadFile(String path) {
 		try {
 			file = new File(path);
@@ -90,6 +76,22 @@ public class Dictionary {
 		} catch(IOException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+		}
+	}
+
+	public void saveFile() throws IOException {
+		try {
+			PrintWriter printWriter = new PrintWriter(this.file);
+			for (Word word : getAllWord()) {
+				String s = word.getWord() + " && "+ word.getDefinition();
+				System.out.println(s);
+				printWriter.write(s);				
+			}
+			printWriter.close();
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			throw new IOException("Aucun fichier sélectionné");
 		}
 	}
 
@@ -120,4 +122,28 @@ public class Dictionary {
 				}
 			}
 	}
+
+	private ArrayList<Word> getAllWord() {
+		return new ArrayList<Word>() {
+			{
+				add(new Word("avion", "un truc qui vole"));
+			}
+		};
+	}
+
+	public class Word {
+		private String word;
+		private String definition;
+
+		public String getWord() { return word; }
+		public String getDefinition() { return definition; }
+		public void setWord(String value) { this.word = value; }
+		public void setDefinition(String value) { this.definition = value; }
+
+		public Word(String word, String definition) {
+			this.word = word;
+			this.definition = definition;
+		}
+	}
+
 }

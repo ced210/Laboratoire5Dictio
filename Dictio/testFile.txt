@@ -1,3 +1,1 @@
-avion & un truc qui est dans le ciel mais pas tout le temps
-abeille & moustique trop lourd pour voler
-abrakadabra & epoustouflant un mot
+avion && un truc qui vole

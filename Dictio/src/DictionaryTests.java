@@ -1,6 +1,7 @@
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import java.util.ArrayList;
+
+// import org.assertj.*;
+import org.junit.*;
 
 public class DictionaryTests {
 
@@ -14,22 +15,35 @@ public class DictionaryTests {
          assertEquals(true, true);
 
       } catch (Exception e) {
-         //TODO: handle exception
          e.getMessage();
       }
    }
 
    @Test
-   public void testopenFile() {
+   public void test_loadFile() {
       try {
          Dictionary dictionary = new Dictionary();
          // dictionary.openFile();
-          
+         dictionary.loadFile("testFile.txt");
          
-         assertEquals(true, true);
+         // assertTrue("The files differ!", FileUtils.contentEquals(new File("testFile.txt"), new File("testFile.txt")));
 
       } catch (Exception e) {
-         //TODO: handle exception
+         e.getMessage();
+      }
+   }
+
+   @Test
+   public void test_saveFile() {
+      try {
+         Dictionary dictionary = new Dictionary();
+         // dictionary.openFile();
+         dictionary.loadFile("testFile.txt");
+         dictionary.saveFile();
+         
+         // assertTrue("The files differ!", FileUtils.contentEquals(new File("testFile.txt"), new File("testFile.txt")));
+
+      } catch (Exception e) {
          e.getMessage();
       }
    }

@@ -1,8 +1,7 @@
-import java.io.File;
-import java.io.IOException;
 import javax.swing.*;
 import java.awt.FileDialog;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class DictioUI {
@@ -48,17 +47,38 @@ public class DictioUI {
 		
 
 		btnCharger.addActionListener(new ActionListener() { 
-			public void actionPerformed(ActionEvent e) { 
-				openFile();
-			} 
-		  });
+            public void actionPerformed(ActionEvent e) { 
+                loadFile();
+            } 
+        });
+          
+        btnEnregistrer.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+                saveFile();
+            } 
+        });
     }
 
-    private void openFile() {
+    private void loadFile() {
 		FileDialog fileDialog = new FileDialog(new JFrame(), "Selectionner un fichier a ouvrir", FileDialog.LOAD);
 		fileDialog.setMultipleMode(false);
 		fileDialog.setVisible(true);
         System.out.println(fileDialog.getFiles()[0].getAbsolutePath());
-        dictionary.loadFile(fileDialog.getFile());
-	}
+        if (fileDialog.getFile() != null) {
+            dictionary.loadFile(fileDialog.getFile());
+        }
+    }
+    
+    private void saveFile() {
+        try {
+            dictionary.saveFile();
+        } catch (Exception e) {
+            showErrorDialog(e.getMessage());
+        }
+    }
+    
+    private void showErrorDialog(String message) {
+        JOptionPane.showMessageDialog(frame, message, "Dialog",
+        JOptionPane.ERROR_MESSAGE);
+    }
 }
