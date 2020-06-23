@@ -100,7 +100,7 @@ public class Dictionary {
 		try {
 			PrintWriter printWriter = new PrintWriter(this.file);
 			for (Word word : getAllWords()) {
-				String s = word.getWord() + " & "+ word.getDefinition();
+				String s = word.getWord() + " & "+ word.getDefinition() + "\n";
 				System.out.println(s);
 				printWriter.write(s);				
 			}
