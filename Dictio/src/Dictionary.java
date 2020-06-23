@@ -11,10 +11,18 @@ public class Dictionary {
 	private String mSearchCriteria;
 	private File file;
 
+	/**
+	 * Retourne la liste de mots 
+	 * @return ArrayList<LexiNode>
+	*/
 	public ArrayList<LexiNode> getWords() {
 		return this.mWords;
 	}
 
+	/**
+	 * Constructeur de Dictionary,
+	 * initialise la liste de mots
+	*/
 	public Dictionary() {
 		mWords = new ArrayList<>();
 	}
@@ -55,8 +63,10 @@ public class Dictionary {
 	//#endregion
 
 	/**
-	 * Ovre l'explorateur de fichier, afin de permettre à l'utilisateur de sélectionner le fichier txt à ouvrir dans le dictionnaire,
+	 * Ouvre l'explorateur de fichier, afin de permettre à l'utilisateur de sélectionner le fichier txt à ouvrir dans le dictionnaire,
 	 * valide aussi le format des donnée?
+	 * Instantie le nouvel arbre de donnee
+	 * @param  path chemin du fichier
 	*/
 	public void loadFile(String path) {
 		try {
@@ -79,6 +89,10 @@ public class Dictionary {
 		}
 	}
 
+	/**
+	 * Sauvergarde tout les mots et définitions de l'arbre sous le forat spéficifier 
+	 * @throws IOException si il n'y a pas de fichier précédement sélectionné
+	*/
 	public void saveFile() throws IOException {
 		try {
 			PrintWriter printWriter = new PrintWriter(this.file);
@@ -123,6 +137,11 @@ public class Dictionary {
 			}
 	}
 
+	/**
+	 * Retourn tout les mots de l'arbre sous une instance de la classe Word 
+	 * @return une list d'objet de la classe Word
+	 * @see Word
+	*/
 	private ArrayList<Word> getAllWord() {
 		return new ArrayList<Word>() {
 			{

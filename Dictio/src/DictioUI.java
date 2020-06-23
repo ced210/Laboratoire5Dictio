@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class DictioUI {
-    
     JFrame frame;
     JButton btnCharger;
     JButton btnEnregistrer;
@@ -64,12 +63,16 @@ public class DictioUI {
     }
 
     private void loadFile() {
-		FileDialog fileDialog = new FileDialog(new JFrame(), "Selectionner un fichier a ouvrir", FileDialog.LOAD);
-		fileDialog.setMultipleMode(false);
-		fileDialog.setVisible(true);
-        System.out.println(fileDialog.getFiles()[0].getAbsolutePath());
-        if (fileDialog.getFile() != null) {
-            dictionary.loadFile(fileDialog.getFile());
+        try {
+            FileDialog fileDialog = new FileDialog(new JFrame(), "Selectionner un fichier a ouvrir", FileDialog.LOAD);
+            fileDialog.setMultipleMode(false);
+            fileDialog.setVisible(true);
+            System.out.println(fileDialog.getFiles()[0].getAbsolutePath());
+            if (fileDialog.getFile() != null) {
+                dictionary.loadFile(fileDialog.getFile());
+            }
+        } catch (Exception e) {
+            showErrorDialog("erreur lors de l'ouverture du fichier");
         }
     }
     

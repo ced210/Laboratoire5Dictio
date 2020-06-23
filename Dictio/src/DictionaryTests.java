@@ -3,16 +3,18 @@ import static org.junit.Assert.assertEquals;
 // import org.assertj.*;
 import org.junit.*;
 
+import java.util.ArrayList;
+
 public class DictionaryTests {
 
    @Test
    public void testAdd() {
       try {
          Dictionary dictionary = new Dictionary();
-         dictionary.addWord("avion");
-          
-         
-         assertEquals(true, true);
+         dictionary.addWord("av");
+          LexiNode node = new LexiNode('a');
+          node.addChild('v');
+         assertEquals(dictionary.getWords(), new ArrayList<LexiNode>() {{ add(node); }});
 
       } catch (Exception e) {
          e.getMessage();

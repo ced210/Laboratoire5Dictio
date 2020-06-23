@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class LexiNode {
 	
-	char mLetter;
+	private char mLetter;
 	
-	ArrayList<LexiNode> children;
+	private ArrayList<LexiNode> children;
 	
 	public ArrayList<LexiNode> getChildren() {
 		return this.children;
