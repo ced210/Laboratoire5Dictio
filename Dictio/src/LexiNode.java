@@ -6,6 +6,8 @@ public class LexiNode {
 	
 	private ArrayList<LexiNode> children;
 	
+	private String mDefinition;
+	
 	public ArrayList<LexiNode> getChildren() {
 		return this.children;
 	}
@@ -13,13 +15,17 @@ public class LexiNode {
 	public char getLetter() {
 		return this.mLetter;
 	}
+	
+	public void setDefinition(String value) { this.mDefinition = value; }
 
 	public LexiNode(char letter) {
 		this.mLetter = letter;
 		this.children = new ArrayList<>();
 	}
 	
-	public void addChild(char letter) {
-		this.children.add(new LexiNode(letter));
+	public LexiNode addChild(char letter) {
+		LexiNode node = new LexiNode(letter);
+		this.children.add(node);
+		return node;
 	}
 }

@@ -24,42 +24,43 @@ public class Dictionary {
 	 * initialise la liste de mots
 	*/
 	public Dictionary() {
-		mWords = new ArrayList<>();
+		// mWords = new ArrayList<>();
+		initialiseDictionary();
 	}
 
 	//#region
 	// /**
 	//  * Initialise la liste de noeud du dicy
 	// */
-	// private void initialiseDictionary() {
-	// 	mWords = new ArrayList<>();
-	// 	mWords.add(new LexiNode('a'));
-	// 	mWords.add(new LexiNode('b'));
-	// 	mWords.add(new LexiNode('c'));
-	// 	mWords.add(new LexiNode('d'));
-	// 	mWords.add(new LexiNode('e'));
-	// 	mWords.add(new LexiNode('f'));
-	// 	mWords.add(new LexiNode('g'));
-	// 	mWords.add(new LexiNode('h'));
-	// 	mWords.add(new LexiNode('i'));
-	// 	mWords.add(new LexiNode('j'));
-	// 	mWords.add(new LexiNode('k'));
-	// 	mWords.add(new LexiNode('l'));
-	// 	mWords.add(new LexiNode('m'));
-	// 	mWords.add(new LexiNode('n'));
-	// 	mWords.add(new LexiNode('o'));
-	// 	mWords.add(new LexiNode('p'));
-	// 	mWords.add(new LexiNode('q'));
-	// 	mWords.add(new LexiNode('r'));
-	// 	mWords.add(new LexiNode('s'));
-	// 	mWords.add(new LexiNode('t'));
-	// 	mWords.add(new LexiNode('u'));
-	// 	mWords.add(new LexiNode('v'));
-	// 	mWords.add(new LexiNode('w'));
-	// 	mWords.add(new LexiNode('x'));
-	// 	mWords.add(new LexiNode('y'));
-	// 	mWords.add(new LexiNode('z'));
-	// }
+	private void initialiseDictionary() {
+		mWords = new ArrayList<>();
+		mWords.add(new LexiNode('a'));
+		mWords.add(new LexiNode('b'));
+		mWords.add(new LexiNode('c'));
+		mWords.add(new LexiNode('d'));
+		mWords.add(new LexiNode('e'));
+		mWords.add(new LexiNode('f'));
+		mWords.add(new LexiNode('g'));
+		mWords.add(new LexiNode('h'));
+		mWords.add(new LexiNode('i'));
+		mWords.add(new LexiNode('j'));
+		mWords.add(new LexiNode('k'));
+		mWords.add(new LexiNode('l'));
+		mWords.add(new LexiNode('m'));
+		mWords.add(new LexiNode('n'));
+		mWords.add(new LexiNode('o'));
+		mWords.add(new LexiNode('p'));
+		mWords.add(new LexiNode('q'));
+		mWords.add(new LexiNode('r'));
+		mWords.add(new LexiNode('s'));
+		mWords.add(new LexiNode('t'));
+		mWords.add(new LexiNode('u'));
+		mWords.add(new LexiNode('v'));
+		mWords.add(new LexiNode('w'));
+		mWords.add(new LexiNode('x'));
+		mWords.add(new LexiNode('y'));
+		mWords.add(new LexiNode('z'));
+	}
 	//#endregion
 
 	/**
@@ -109,32 +110,38 @@ public class Dictionary {
 		}
 	}
 
-	public void addWord(String word) {
+	public void addWord(Word word) {
 		for (LexiNode lexiNode : mWords) {
-			if(lexiNode.getLetter() == word.charAt(0)) {
-				lexiNode.addChild(word.charAt(0));
-				mapWord(word.substring(1, word.length()), lexiNode);
+			if(lexiNode.getLetter() == word.getWord().charAt(0)) {
+				//si prochaine lettre
+				mapWord(new Word(word.getWord().substring(1, word.getWord().length()),
+						word.getDefinition())
+					, lexiNode);
 			}
 		}
 	}
 
-	public void mapWord(String word, LexiNode node) {
+	private void mapWord(Word word, LexiNode node) {
 		//affecter la premiere lettre
 		//Si il y a une prochaine lettre
 			// Si les enfants du noeud ne contient pas la lettre
 				// ajouter la lettre
 			// trouver le node du char
 			//recurc avec la fin du mot et sur les children du Node
-		char letter = word.charAt(0);
-		if(word.length() > 1)
-			if(node.getChildren().contains(new LexiNode(letter))) {
-				node.addChild(letter);
+		char letter = word.getWord().charAt(0);
+		if(!node.getChildren().contains(new LexiNode(letter))) {
+			node.addChild(letter);
+		}
+		for (LexiNode lexiNode : node.getChildren()) {
+			if(lexiNode.getLetter() == letter) {
+				if(word.getWord().length() > 1)
+					mapWord(new Word(word.getWord().substring(1, word.getWord().length()),
+							word.getDefinition())
+						, lexiNode);
+				else
+					lexiNode.setDefinition(word.getDefinition());
 			}
-			for (LexiNode lexiNode : node.getChildren()) {
-				if(lexiNode.getLetter() == word.charAt(0)) {
-					mapWord(word.substring(1, word.length()), lexiNode);
-				}
-			}
+		}
 	}
 
 	/**
@@ -149,20 +156,4 @@ public class Dictionary {
 			}
 		};
 	}
-
-	public class Word {
-		private String word;
-		private String definition;
-
-		public String getWord() { return word; }
-		public String getDefinition() { return definition; }
-		public void setWord(String value) { this.word = value; }
-		public void setDefinition(String value) { this.definition = value; }
-
-		public Word(String word, String definition) {
-			this.word = word;
-			this.definition = definition;
-		}
-	}
-
 }
