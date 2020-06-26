@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -68,8 +69,10 @@ public class Dictionary {
 	 * valide aussi le format des donnée?
 	 * Instantie le nouvel arbre de donnee
 	 * @param  path chemin du fichier
+	 * @throws FileNotFoundException si il y a eu une erreur avec la sélection de fichier
+	 * @throws IOException si il n'y a pas de fichier précédement sélectionné
 	*/
-	public void loadFile(String path) {
+	public void loadFile(String path) throws FileNotFoundException, IOException {
 		try {
 			file = new File(path);
 			if(!file.exists()) {
@@ -86,9 +89,11 @@ public class Dictionary {
 		} catch(FileNotFoundException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			throw new FileNotFoundException("Fichier non trouvé");
 		} catch(IOException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			throw new IOException("Aucun fichier sélectionné");
 		}
 	}
 
@@ -111,7 +116,17 @@ public class Dictionary {
 		}
 	}
 
+	/**
+	 * Ajout un mot au Dicitonnaire
+	 * @param word le Mot à ajouter
+	 */
 	public void addWord(Word word) {
+		if(word == null)
+			throw new InvalidParameterException("Word object should not be null");
+		if(word.getWord() == null)
+			throw new InvalidParameterException("word should not be null");
+		if(word.getDefinition() == null)
+			throw new InvalidParameterException("Definition should not be null");
 		for (LexiNode lexiNode : mWords) {
 			if(lexiNode.getLetter() == word.getWord().charAt(0)) {
 				Word nextWord = new Word(word.getWord().substring(1, word.getWord().length()), word.getDefinition()); 
@@ -120,6 +135,11 @@ public class Dictionary {
 		}
 	}
 
+	/**
+	 * Ajoute une lettre au enfant d'un LexiNode récurcivement
+	 * @param word Le reste du Mot à ajouter
+	 * @param node le LexiNode à ajouter la prochaine lettre
+	 */
 	private void mapWord(Word word, LexiNode node) {
 		char currentLetter = word.getWord().charAt(0);
 		if(!node.getChildren().stream().anyMatch(n -> n.getLetter() == currentLetter)) {

@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.InvalidParameterException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,10 +37,13 @@ public class DictioUI {
         txfSearch = new JTextField();
         txfDescription = new JTextField();
         labelSearch = new JLabel("Search");
-        searchJList = new JList<Word>();// data
+        searchJList = new JList<Word>();
         listScroller = new JScrollPane(searchJList);
     }
 
+    /**
+     * Initialise la position et les paramètres des composantes du menu.
+     */
     public void display() {
 
         searchJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -71,6 +75,9 @@ public class DictioUI {
         frame.setVisible(true);// making the frame visible
     }
 
+    /**
+     * Ajoute les action lors de l'interaction avec les composantes du menu.
+     */
     private void addEventListener() {
         searchJList.addListSelectionListener(new SharedListSelectionHandler());
 
@@ -87,6 +94,9 @@ public class DictioUI {
         });
     }
 
+    /**
+     * Affecte la liste de donnée des mots correspondant à la recherche.
+     */
     private void setSearchListData(){
         var al = dictionary.getAllWords();
         Word[] arr = new Word[al.size()]; 
@@ -94,6 +104,9 @@ public class DictioUI {
         searchJList.setListData(arr);
     }
 
+    /**
+     * Ouvre l'explorateur de fichier pour permettre de sélectionner un fichier à ouvrir.
+     */
     private void loadFile() {
         try {
             FileDialog fileDialog = new FileDialog(new JFrame(), "Selectionner un fichier a ouvrir", FileDialog.LOAD);
@@ -109,6 +122,9 @@ public class DictioUI {
         }
     }
 
+    /*
+     * Appel la fonction de sauvegarde de fichier du Dictionnaire.
+     */
     private void saveFile() {
         try {
             dictionary.saveFile();
@@ -117,8 +133,16 @@ public class DictioUI {
         }
     }
 
+    /*
+     * Ajoute ou Modifie un mot selon le mot inscrit dans la boite de recherche
+     * et les mots instrint dans la boite de définition
+     */
     private void addEditWord() {
         try {
+            if(txfSearch.getText() == null)
+                throw new InvalidParameterException("Word object should not be null");
+            if(txfDescription.getText() == null)
+			    throw new InvalidParameterException("Definition object should not be null");
             dictionary.addWord(new Word(txfSearch.getText(), txfDescription.getText()));
             setSearchListData();
         } catch (Exception e) {
@@ -126,6 +150,10 @@ public class DictioUI {
         }
     }
 
+    /**
+     * Ouvre ledialogue d'erreur pour afficher l'erreur à l'usagé
+     * @param message le message d'erreur à afficher
+     */
     private void showErrorDialog(String message) {
         JOptionPane.showMessageDialog(frame, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
