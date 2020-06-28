@@ -9,11 +9,17 @@ public class DictionaryTests {
    @Test
    public void test_addWord() {
       try {
+         //Arrange
          Dictionary dictionary = new Dictionary();
          Word newWord = new Word("avion", "un truc qui vole");
+         
+         //Act
          dictionary.addWord(newWord);
 
-         assertEquals(true, true);
+         //Assert
+         ArrayList<Word> words = dictionary.getAllWords();
+         assertEquals(words.get(0).getWord(), newWord.getWord());
+         assertEquals(words.get(0).getDefinition(), newWord.getDefinition());
       } catch (Exception e) {
          e.getMessage();
       }
@@ -22,13 +28,24 @@ public class DictionaryTests {
    @Test
    public void test_addWord2() {
       try {
+         //Arrange
          Dictionary dictionary = new Dictionary();
          Word word1 = new Word("avion", "un truc qui vole");
          Word word2 = new Word("aviateur", "le dude qui vole");
+         
+         //Act
          dictionary.addWord(word1);
          dictionary.addWord(word2);
 
-         assertEquals(true, true);
+         //Assert
+         ArrayList<Word> words = dictionary.getAllWords();
+         ArrayList<Word> expected = new ArrayList<Word>();
+         expected.add(word1);
+         expected.add(word2);
+         assertEquals(words.get(0).getWord(), expected.get(0).getWord());
+         assertEquals(words.get(0).getDefinition(), expected.get(0).getDefinition());
+         assertEquals(words.get(1).getWord(), expected.get(1).getWord());
+         assertEquals(words.get(1).getDefinition(), expected.get(1).getDefinition());
       } catch (Exception e) {
          e.getMessage();
       }
@@ -37,15 +54,29 @@ public class DictionaryTests {
    @Test
    public void test_addWord3() {
       try {
+         //Arrange
          Dictionary dictionary = new Dictionary();
          Word word1 = new Word("avion", "un truc qui vole");
          Word word2 = new Word("aviation", "le dude qui vole");
          Word word3 = new Word("elephant", "gros truc gris");
+         
+         //Act
          dictionary.addWord(word1);
          dictionary.addWord(word2);
          dictionary.addWord(word3);
 
-         assertEquals(true, true);
+         //Assert
+         ArrayList<Word> words = dictionary.getAllWords();
+         ArrayList<Word> expected = new ArrayList<Word>();
+         expected.add(word1);
+         expected.add(word2);
+         expected.add(word3);
+         assertEquals(words.get(0).getWord(), expected.get(0).getWord());
+         assertEquals(words.get(0).getDefinition(), expected.get(0).getDefinition());
+         assertEquals(words.get(1).getWord(), expected.get(1).getWord());
+         assertEquals(words.get(1).getDefinition(), expected.get(1).getDefinition());
+         assertEquals(words.get(2).getWord(), expected.get(2).getWord());
+         assertEquals(words.get(2).getDefinition(), expected.get(2).getDefinition());
       } catch (Exception e) {
          e.getMessage();
       }
@@ -54,6 +85,7 @@ public class DictionaryTests {
    @Test
    public void test_getAllWords() {
       try {
+         //Arrange
          Dictionary dictionary = new Dictionary();
          Word word1 = new Word("avion", "un truc qui vole");
          Word word2 = new Word("aviation", "le dude qui vole");
@@ -62,13 +94,14 @@ public class DictionaryTests {
          dictionary.addWord(word2);
          dictionary.addWord(word3);
 
+         //Act
          ArrayList<Word> words = dictionary.getAllWords();
 
+         //Assert
          ArrayList<Word> expected = new ArrayList<Word>();
          expected.add(word1);
          expected.add(word2);
          expected.add(word3);
-
          assertEquals(words.get(0).getWord(), expected.get(0).getWord());
          assertEquals(words.get(0).getDefinition(), expected.get(0).getDefinition());
          assertEquals(words.get(1).getWord(), expected.get(1).getWord());
@@ -83,6 +116,7 @@ public class DictionaryTests {
    @Test
    public void test_searchWords() {
       try {
+         //Arrange
          Dictionary dictionary = new Dictionary();
          Word word1 = new Word("avion", "un truc qui vole");
          Word word2 = new Word("aviation", "le dude qui vole");
@@ -91,8 +125,10 @@ public class DictionaryTests {
          dictionary.addWord(word2);
          dictionary.addWord(word3);
 
+         //Act
          ArrayList<Word> words = dictionary.searchWords("avi");
 
+         //Assert
          ArrayList<Word> expected = new ArrayList<Word>();
          expected.add(word1);
          expected.add(word2);
