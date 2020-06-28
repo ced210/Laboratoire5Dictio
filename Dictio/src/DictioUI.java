@@ -15,6 +15,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+//TODO Javadoc, reponsabilite de classe, collaborateurs, 
 public class DictioUI {
     JFrame frame;
     JButton btnLoad;
@@ -28,6 +29,7 @@ public class DictioUI {
 
     Dictionary dictionary;
 
+    //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
     public DictioUI() {
         dictionary = new Dictionary();
         frame = new JFrame("Dictio");
@@ -41,6 +43,7 @@ public class DictioUI {
         listScroller = new JScrollPane(searchJList);
     }
 
+    ////TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
     /**
      * Initialise la position et les paramètres des composantes du menu.
      */
@@ -75,6 +78,7 @@ public class DictioUI {
         frame.setVisible(true);// making the frame visible
     }
 
+    ////TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
     /**
      * Ajoute les action lors de l'interaction avec les composantes du menu.
      */
@@ -94,6 +98,7 @@ public class DictioUI {
         });
     }
 
+    ////TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
     /**
      * Affecte la liste de donnée des mots correspondant à la recherche.
      */
@@ -104,6 +109,7 @@ public class DictioUI {
         searchJList.setListData(arr);
     }
 
+    //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
     /**
      * Ouvre l'explorateur de fichier pour permettre de sélectionner un fichier à ouvrir.
      */
@@ -122,6 +128,7 @@ public class DictioUI {
         }
     }
 
+    //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
     /*
      * Appel la fonction de sauvegarde de fichier du Dictionnaire.
      */
@@ -133,6 +140,7 @@ public class DictioUI {
         }
     }
 
+    //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
     /*
      * Ajoute ou Modifie un mot selon le mot inscrit dans la boite de recherche
      * et les mots instrint dans la boite de définition
@@ -150,6 +158,7 @@ public class DictioUI {
         }
     }
 
+    //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
     /**
      * Ouvre ledialogue d'erreur pour afficher l'erreur à l'usagé
      * @param message le message d'erreur à afficher
@@ -158,6 +167,7 @@ public class DictioUI {
         JOptionPane.showMessageDialog(frame, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    //TODO Javadoc, reponsabilite de classe, collaborateurs, 
     class SharedListSelectionHandler implements ListSelectionListener {
         public void valueChanged(ListSelectionEvent e) {
             if (e.getValueIsAdjusting() == false) {
@@ -169,6 +179,7 @@ public class DictioUI {
         }
     }
 
+    //TODO Javadoc, reponsabilite de classe, collaborateurs, 
     class WordCellRenderer extends JLabel implements ListCellRenderer<Object> {
         public WordCellRenderer() {
             setOpaque(true);

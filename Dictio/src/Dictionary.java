@@ -6,12 +6,14 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//TODO Javadoc, reponsabilite de classe, collaborateurs, 
 public class Dictionary {
 
 	private ArrayList<LexiNode> mWords;
 	private String mSearchCriteria;
 	private File file;
 
+	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	/**
 	 * Retourne la liste de mots 
 	 * @return ArrayList<LexiNode>
@@ -19,7 +21,7 @@ public class Dictionary {
 	public ArrayList<LexiNode> getWords() {
 		return this.mWords;
 	}
-
+//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	/**
 	 * Constructeur de Dictionary,
 	 * initialise la liste de mots
@@ -28,7 +30,7 @@ public class Dictionary {
 		// mWords = new ArrayList<>();
 		initialiseDictionary();
 	}
-
+//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	//#region
 	// /**
 	//  * Initialise la liste de noeud du dicy
@@ -63,7 +65,7 @@ public class Dictionary {
 		mWords.add(new LexiNode('z'));
 	}
 	//#endregion
-
+//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	/**
 	 * Ouvre l'explorateur de fichier, afin de permettre à l'utilisateur de sélectionner le fichier txt à ouvrir dans le dictionnaire,
 	 * valide aussi le format des donnée?
@@ -96,7 +98,7 @@ public class Dictionary {
 			throw new IOException("Aucun fichier sélectionné");
 		}
 	}
-
+//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	/**
 	 * Sauvergarde tout les mots et définitions de l'arbre sous le forat spéficifier 
 	 * @throws IOException si il n'y a pas de fichier précédement sélectionné
@@ -115,7 +117,7 @@ public class Dictionary {
 			throw new IOException("Aucun fichier sélectionné");
 		}
 	}
-
+//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	/**
 	 * Ajout un mot au Dicitonnaire
 	 * @param word le Mot à ajouter
@@ -134,7 +136,8 @@ public class Dictionary {
 			}
 		}
 	}
-
+	//TODO move in LexiNode, node params => this
+	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	/**
 	 * Ajoute une lettre au enfant d'un LexiNode récurcivement
 	 * @param word Le reste du Mot à ajouter
@@ -156,7 +159,7 @@ public class Dictionary {
 			}
 		}
 	}
-
+//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	/**
 	 * Retourn tout les mots de l'arbre sous une instance de la classe Word 
 	 * @return une list d'objet de la classe Word
@@ -170,7 +173,7 @@ public class Dictionary {
 		}
 		return words;
 	}
-
+//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	private ArrayList<Word> getAllWordsRecu(LexiNode lexiNode, String currentWord) {
 		ArrayList<Word> nodeWords = new ArrayList<Word>();
 		for (LexiNode node : lexiNode.getChildren()) {
