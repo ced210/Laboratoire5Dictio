@@ -41,7 +41,7 @@ public class DictioUI {
         labelSearch = new JLabel("Search");
         searchJList = new JList<Word>();
         dictionnaryJList = new JList<Word>();
-        listScroller = new JScrollPane(searchJList);
+        listScroller = new JScrollPane(dictionnaryJList);
     }
 
     ////TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
@@ -50,10 +50,10 @@ public class DictioUI {
      */
     public void display() {
 
-        searchJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        searchJList.setLayoutOrientation(JList.VERTICAL);
-        searchJList.setVisibleRowCount(-1);
-        searchJList.setCellRenderer(new WordCellRenderer());
+    	dictionnaryJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+    	dictionnaryJList.setLayoutOrientation(JList.VERTICAL);
+    	dictionnaryJList.setVisibleRowCount(-1);
+    	dictionnaryJList.setCellRenderer(new WordCellRenderer());
         listScroller.setPreferredSize(new Dimension(250, 80));
 
         labelSearch.setBounds(10, 20, 100, 20);
@@ -87,7 +87,7 @@ public class DictioUI {
      * Ajoute les action lors de l'interaction avec les composantes du menu.
      */
     private void addEventListener() {
-        searchJList.addListSelectionListener(new SharedListSelectionHandler());
+    	dictionnaryJList.addListSelectionListener(new SharedListSelectionHandler());
 
         btnLoad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) { loadFile(); }
@@ -110,7 +110,7 @@ public class DictioUI {
         var al = dictionary.getAllWords();
         Word[] arr = new Word[al.size()]; 
         arr = al.toArray(arr);
-        searchJList.setListData(arr);
+        dictionnaryJList.setListData(arr);
     }
 
     //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
