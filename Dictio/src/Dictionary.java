@@ -105,34 +105,12 @@ public class Dictionary {
 		for (LexiNode lexiNode : mWords) {
 			if(lexiNode.getLetter() == word.getWord().charAt(0)) {
 				Word nextWord = new Word(word.getWord().substring(1, word.getWord().length()), word.getDefinition()); 
-				mapWord(nextWord, lexiNode);
+				lexiNode.mapWord(nextWord);
 			}
 		}
 	}
-	//TODO move in LexiNode, node params => this
+	
 	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
-	/**
-	 * Ajoute une lettre au enfant d'un LexiNode récurcivement
-	 * @param word Le reste du Mot à ajouter
-	 * @param node le LexiNode à ajouter la prochaine lettre
-	 */
-	private void mapWord(Word word, LexiNode node) {
-		char currentLetter = word.getWord().charAt(0);
-		if(!node.getChildren().stream().anyMatch(n -> n.getLetter() == currentLetter)) {
-			node.addChild(currentLetter);
-		}
-		for (LexiNode lexiNode : node.getChildren()) {
-			if(lexiNode.getLetter() == currentLetter) {
-				if(word.getWord().length() > 1) {
-					Word nextWord = new Word(word.getWord().substring(1, word.getWord().length()), word.getDefinition());
-					mapWord(nextWord, lexiNode);
-				}
-				else
-					lexiNode.setDefinition(word.getDefinition());
-			}
-		}
-	}
-//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	/**
 	 * Retourn tout les mots de l'arbre sous une instance de la classe Word 
 	 * @return une list d'objet de la classe Word
@@ -141,51 +119,26 @@ public class Dictionary {
 	public ArrayList<Word> getAllWords() {
 		ArrayList<Word> words = new ArrayList<Word>();
 		for (LexiNode lexiNode : mWords) {
-			ArrayList<Word> nodeWords = getAllWordsRecu(lexiNode, Character.toString(lexiNode.getLetter()));
+			ArrayList<Word> nodeWords = lexiNode.getAllWordsRecu(Character.toString(lexiNode.getLetter()));
 			words.addAll(nodeWords);
 		}
 		return words;
 	}
-//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
-	private ArrayList<Word> getAllWordsRecu(LexiNode lexiNode, String currentWord) {
-		ArrayList<Word> nodeWords = new ArrayList<Word>();
-		for (LexiNode node : lexiNode.getChildren()) {
-			if(node.getDefinition() != null)
-				nodeWords.add(new Word(currentWord + node.getLetter(), node.getDefinition()));
-			else
-				nodeWords.addAll(getAllWordsRecu(node, currentWord + node.getLetter()));
-		}
-		return nodeWords;
-	}
+
 
 	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	public ArrayList<Word> searchWords(String criteria) {
 		ArrayList<Word> words = new ArrayList<Word>();
 		for (LexiNode lexiNode : mWords) {
 			if(Character.toLowerCase(criteria.charAt(0)) == Character.toLowerCase(lexiNode.getLetter())) {
-				ArrayList<Word> nodeWords = searchRecu(lexiNode, Character.toString(lexiNode.getLetter()), criteria.substring(1, criteria.length()));
+				ArrayList<Word> nodeWords = lexiNode.searchRecu(Character.toString(lexiNode.getLetter()), criteria.substring(1, criteria.length()));
 				words.addAll(nodeWords);
 			}
 		}
 		return words;
 	}
 
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
-	private ArrayList<Word> searchRecu(LexiNode lexiNode, String currentWord, String criteria) {
-		ArrayList<Word> nodeWords = new ArrayList<Word>();
-		for (LexiNode node : lexiNode.getChildren()) {
-			if(criteria.length() > 0 ? Character.toLowerCase(criteria.charAt(0)) == Character.toLowerCase(node.getLetter()) : true)
-				if(node.getDefinition() != null)
-					nodeWords.add(new Word(currentWord + node.getLetter(), node.getDefinition()));
-				else {
-					if(criteria.length() > 0)
-						nodeWords.addAll(searchRecu(node, currentWord + node.getLetter(), criteria.substring(1, criteria.length())));
-					else
-					nodeWords.addAll(getAllWordsRecu(node, currentWord + node.getLetter()));
-				}
-		}
-		return nodeWords;
-	}
+	
 	
 
 }

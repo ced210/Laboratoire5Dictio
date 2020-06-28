@@ -67,5 +67,57 @@ public class LexiNode {
 		return node;
 	}
 
+	//TODO move in LexiNode, node params => this
+	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	/**
+	 * Ajoute une lettre au enfant d'un LexiNode récurcivement
+	 * @param word Le reste du Mot à ajouter
+	 * @param node le LexiNode à ajouter la prochaine lettre
+	 */
+	public void mapWord(Word word) {
+		char currentLetter = word.getWord().charAt(0);
+		if(!this.getChildren().stream().anyMatch(n -> n.getLetter() == currentLetter)) {
+			this.addChild(currentLetter);
+		}
+		for (LexiNode lexiNode : this.getChildren()) {
+			if(lexiNode.getLetter() == currentLetter) {
+				if(word.getWord().length() > 1) {
+					Word nextWord = new Word(word.getWord().substring(1, word.getWord().length()), word.getDefinition());
+					lexiNode.mapWord(nextWord);
+				}
+				else
+					lexiNode.setDefinition(word.getDefinition());
+			}
+		}
+	}
+
+	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	public ArrayList<Word> getAllWordsRecu(String currentWord) {
+		ArrayList<Word> nodeWords = new ArrayList<Word>();
+		for (LexiNode node : this.getChildren()) {
+			if(node.getDefinition() != null)
+				nodeWords.add(new Word(currentWord + node.getLetter(), node.getDefinition()));
+			else
+				nodeWords.addAll(node.getAllWordsRecu(currentWord + node.getLetter()));
+		}
+		return nodeWords;
+	}
+
+	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	public ArrayList<Word> searchRecu(String currentWord, String criteria) {
+		ArrayList<Word> nodeWords = new ArrayList<Word>();
+		for (LexiNode node : this.getChildren()) {
+			if(criteria.length() > 0 ? Character.toLowerCase(criteria.charAt(0)) == Character.toLowerCase(node.getLetter()) : true)
+				if(node.getDefinition() != null)
+					nodeWords.add(new Word(currentWord + node.getLetter(), node.getDefinition()));
+				else {
+					if(criteria.length() > 0)
+						nodeWords.addAll(node.searchRecu(currentWord + node.getLetter(), criteria.substring(1, criteria.length())));
+					else
+					nodeWords.addAll(node.getAllWordsRecu(currentWord + node.getLetter()));
+				}
+		}
+		return nodeWords;
+	}
 
 }

@@ -1,4 +1,3 @@
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.*;
@@ -102,8 +101,6 @@ public class DictionaryTests {
          assertEquals(words.get(0).getDefinition(), expected.get(0).getDefinition());
          assertEquals(words.get(1).getWord(), expected.get(1).getWord());
          assertEquals(words.get(1).getDefinition(), expected.get(1).getDefinition());
-         // assertEquals(words.get(2).getWord(), expected.get(2).getWord());
-         // assertEquals(words.get(2).getDefinition(), expected.get(2).getDefinition());
       } catch (Exception e) {
          e.getMessage();
       }
