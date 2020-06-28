@@ -13,15 +13,17 @@ public class Dictionary {
 	private String mSearchCriteria;
 	private File file;
 
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	//TODO double check
 	/**
 	 * Retourne la liste de mots 
 	 * @return ArrayList<LexiNode>
+	 * @see LexiNode
 	*/
-	public ArrayList<LexiNode> getWords() {
+	public /*@ pure @*/ ArrayList<LexiNode> getWords() {
 		return this.mWords;
 	}
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+
+	//TODO double check
 	/**
 	 * Constructeur de Dictionary,
 	 * initialise la liste de mots
@@ -35,9 +37,9 @@ public class Dictionary {
 	 * Ouvre l'explorateur de fichier, afin de permettre à l'utilisateur de sélectionner le fichier txt à ouvrir dans le dictionnaire,
 	 * valide aussi le format des donnée?
 	 * Instantie le nouvel arbre de donnee
-	 * @param  path chemin du fichier
-	 * @throws FileNotFoundException si il y a eu une erreur avec la sélection de fichier
-	 * @throws IOException si il n'y a pas de fichier précédement sélectionné
+	 * @requires chaîne de caractères (path) étant le chemin du fichier)
+	 * @throws FileNotFoundException s'il y a eu une erreur avec la sélection de fichier
+	 * @throws IOException s'il n'y a pas de fichier précédement sélectionné
 	*/
 	public void loadFile(String path) throws FileNotFoundException, IOException {
 		try {
@@ -68,10 +70,11 @@ public class Dictionary {
 		}
 	}
 
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	//TODO double check
 	/**
-	 * Sauvergarde tout les mots et définitions de l'arbre sous le forat spéficifier 
-	 * @throws IOException si il n'y a pas de fichier précédement sélectionné
+	 * Sauvergarde tout les mots et définitions de l'arbre sous le for at spéficifier 
+	 * @throws IOException s'il n'y a pas de fichier précédement sélectionné
+	 * @see Word
 	*/
 	public void saveFile() throws IOException {
 		try {
@@ -87,10 +90,19 @@ public class Dictionary {
 			throw new IOException("Aucun fichier sélectionné");
 		}
 	}
-//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+
+	//TODO double check
 	/**
-	 * Ajout un mot au Dicitonnaire
-	 * @param word le Mot à ajouter
+	 * Ajoute un mot au Dictionnaire
+	 * @ensures le mot ne peut pas être null
+	 * @ensures définition ne peut pas être null
+	 * @ensures l'object word ne peut pas être null
+	 * @throws InvalidParameterException s'il n'y a pas de mot
+	 * @throws InvalidParameterException si le mot n'est pas initialisé
+	 * @throws InvalidParameterException si la définition du mot est vide
+	 * @requires word (le mot à ajouter)
+	 * @see Word
+	 * @see LexiNode
 	 */
 	public void addWord(Word word) {
 		if(word == null)
@@ -110,11 +122,13 @@ public class Dictionary {
 		}
 	}
 	
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	//TODO double check
 	/**
-	 * Retourn tout les mots de l'arbre sous une instance de la classe Word 
-	 * @return une list d'objet de la classe Word
+	 * Retourne tous les mots de l'arbre sous une instance de la classe Word
+	 * 
+	 * @return words (une list d'objet de la classe Word)
 	 * @see Word
+	 * @see LexiNode
 	*/
 	public ArrayList<Word> getAllWords() {
 		ArrayList<Word> words = new ArrayList<Word>();
@@ -126,7 +140,13 @@ public class Dictionary {
 	}
 
 
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	//TODO double check
+	/**
+	 * Retourne tous les mots de l'arbre contenant le critère de sélection sous une instance de la classe Word
+	 * @return words (une list d'objet de la classe Word)
+	 * @see Word
+	 * @see LexiNode
+	*/
 	public ArrayList<Word> searchWords(String criteria) {
 		ArrayList<Word> words = new ArrayList<Word>();
 		for (LexiNode lexiNode : mWords) {
