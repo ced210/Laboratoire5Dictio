@@ -110,12 +110,20 @@ public class DictioUI {
         });
 
         txfSearch.addKeyListener(new KeyListener() {
-            public void keyPressed(KeyEvent e) {
-                String criteria = txfSearch.getText();
-                if (Character.isLetter(e.getKeyChar())){
-                    criteria += e.getKeyChar();
+            public void keyPressed(KeyEvent keyEvent) {
+                try {
+                    String criteria = txfSearch.getText().toString();
+                    // if(!criteria.matches("^[a-zA-Z]+$"))
+                    //     throw new Exception("Please enter a letter");
+                    if (Character.isLetter(keyEvent.getKeyChar())){
+                        criteria += keyEvent.getKeyChar();
+                    }
+                    setSearchListData(criteria);
                 }
-                setSearchListData(criteria);
+                catch(Exception e) {
+                    txfSearch.setText("");
+                    showErrorDialog(e.getMessage());
+                }
             }
         
             public void keyReleased(KeyEvent e) { /* ... */ }
