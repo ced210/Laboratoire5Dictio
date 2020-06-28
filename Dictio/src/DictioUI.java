@@ -157,7 +157,8 @@ public class DictioUI {
             }
             setDictionaryListData();
         } catch (Exception e) {
-            showErrorDialog("Erreur lors de l'ouverture du fichier");
+            if(e.getMessage() != null ) showErrorDialog(e.getMessage());
+            else showErrorDialog("Erreur lors de l'ouverture du fichier");
         }
     }
 

@@ -21,51 +21,16 @@ public class Dictionary {
 	public ArrayList<LexiNode> getWords() {
 		return this.mWords;
 	}
-//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	/**
 	 * Constructeur de Dictionary,
 	 * initialise la liste de mots
 	*/
 	public Dictionary() {
-		// mWords = new ArrayList<>();
-		initialiseDictionary();
-	}
-//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
-	//#region
-	// /**
-	//  * Initialise la liste de noeud du dicy
-	// */
-	private void initialiseDictionary() {
 		mWords = new ArrayList<>();
-		mWords.add(new LexiNode('a'));
-		mWords.add(new LexiNode('b'));
-		mWords.add(new LexiNode('c'));
-		mWords.add(new LexiNode('d'));
-		mWords.add(new LexiNode('e'));
-		mWords.add(new LexiNode('f'));
-		mWords.add(new LexiNode('g'));
-		mWords.add(new LexiNode('h'));
-		mWords.add(new LexiNode('i'));
-		mWords.add(new LexiNode('j'));
-		mWords.add(new LexiNode('k'));
-		mWords.add(new LexiNode('l'));
-		mWords.add(new LexiNode('m'));
-		mWords.add(new LexiNode('n'));
-		mWords.add(new LexiNode('o'));
-		mWords.add(new LexiNode('p'));
-		mWords.add(new LexiNode('q'));
-		mWords.add(new LexiNode('r'));
-		mWords.add(new LexiNode('s'));
-		mWords.add(new LexiNode('t'));
-		mWords.add(new LexiNode('u'));
-		mWords.add(new LexiNode('v'));
-		mWords.add(new LexiNode('w'));
-		mWords.add(new LexiNode('x'));
-		mWords.add(new LexiNode('y'));
-		mWords.add(new LexiNode('z'));
 	}
-	//#endregion
-//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+
+	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	/**
 	 * Ouvre l'explorateur de fichier, afin de permettre à l'utilisateur de sélectionner le fichier txt à ouvrir dans le dictionnaire,
 	 * valide aussi le format des donnée?
@@ -98,7 +63,8 @@ public class Dictionary {
 			throw new IOException("Aucun fichier sélectionné");
 		}
 	}
-//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+
+	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	/**
 	 * Sauvergarde tout les mots et définitions de l'arbre sous le forat spéficifier 
 	 * @throws IOException si il n'y a pas de fichier précédement sélectionné
@@ -129,6 +95,9 @@ public class Dictionary {
 			throw new InvalidParameterException("word should not be null");
 		if(word.getDefinition() == null)
 			throw new InvalidParameterException("Definition should not be null");
+		if(!mWords.stream().anyMatch(n -> n.getLetter() == word.getWord().charAt(0))) {
+			mWords.add(new LexiNode(word.getWord().charAt(0)));
+		}
 		for (LexiNode lexiNode : mWords) {
 			if(lexiNode.getLetter() == word.getWord().charAt(0)) {
 				Word nextWord = new Word(word.getWord().substring(1, word.getWord().length()), word.getDefinition()); 
