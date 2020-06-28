@@ -25,8 +25,8 @@ public class DictioUI {
     JTextField txfDescription;
     JLabel labelSearch;
     JList<Word> searchJList;
+    JList<Word> dictionnaryJList;
     JScrollPane listScroller;
-
     Dictionary dictionary;
 
     //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
@@ -40,6 +40,7 @@ public class DictioUI {
         txfDescription = new JTextField();
         labelSearch = new JLabel("Search");
         searchJList = new JList<Word>();
+        dictionnaryJList = new JList<Word>();
         listScroller = new JScrollPane(searchJList);
     }
 
@@ -61,6 +62,7 @@ public class DictioUI {
         btnAddEdit.setBounds(300, 200, 200, 50);
         txfSearch.setBounds(10, 50, 300, 30);
         searchJList.setBounds(10, 80, 300, 90);
+        dictionnaryJList.setBounds(710,50,265,120);
         txfDescription.setBounds(310, 50, 400, 120);
         frame.add(btnLoad);// adding button in Jframerame
         frame.add(btnSave);
@@ -69,13 +71,15 @@ public class DictioUI {
         frame.add(labelSearch);
         frame.add(txfDescription);
         frame.add(searchJList);
-        frame.setSize(1000, 600);
+        frame.add(dictionnaryJList);
+        frame.setSize(1000, 400);
 
         setSearchListData();
         addEventListener();
 
         frame.setLayout(null);// using no layout managers
         frame.setVisible(true);// making the frame visible
+        frame.setResizable(false);
     }
 
     ////TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
