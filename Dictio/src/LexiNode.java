@@ -8,47 +8,58 @@ public class LexiNode {
 	private ArrayList<LexiNode> children;
 	
 	private String mDefinition;
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	
+	//TODO double check
 	/**
-	 * Accesseur de la collection d'enfant du noeud
-	 * @return un ecolection de LexiNode
+	 * Accesseur de la collection d'enfant du noeud courant
+	 * @return une collection de LexiNode
 	 */
-	public ArrayList<LexiNode> getChildren() {
+	public /*@ pure @*/ ArrayList<LexiNode> getChildren() {
 		return this.children;
 	}
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+
+	//TODO double check
 	/**
-	 * accesseur de lattre du LexiNode.
+	 * accesseur de la lettre du LexiNode.
 	 * @return la lettre.
 	 */
-	public char getLetter() {
+
+	public /*@ pure @*/ char getLetter() {
 		return this.mLetter;
 	}
-//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+
+	//TODO double check
 	/**
-	 * Accesseur del adéfinition du LexiNOde,
-	 * Si il y en a une.
+	 * Accesseur de la définition du LexiNOde,
+	 * @ ensures renvois une définition s'il y en a une.
 	 * @return la définition.
 	 */
-	public String getDefinition() {
+	public /*@ pure @*/ String getDefinition() {
 		return this.mDefinition;
 	}
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+
+	//TODO double check
+	/**
+	 * Prend une chaîne de caratères et l'ajoute à la définition du lexinode courant 
+	 * @ requires une chaîne de caractères 
+	 */
 	public void setDefinition(String value) { this.mDefinition = value; }
-//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+
+	//TODO double check
 	/**
 	 * Constructeur de la classe LexiNode
-	 * @param letter la lettre du noeud
+	 * @ requires une lettre
+	 * @return le LexiNode
 	 */
 	public LexiNode(char letter) {
 		this.mLetter = letter;
 		this.children = new ArrayList<>();
 	}
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	//TODO double check
 	/**
-	 * Ajoute un lettre au enfant du noeud
-	 * @param letter le lettre du noeud enfant
-	 * @return le noeud ajouter
+	 * Ajoute une lettre a l'enfant du noeud
+	 * @ requires une lettre
+	 * @return le LexiNode de la lettre
 	 */
 	public LexiNode addChild(char letter) {
 		LexiNode node = new LexiNode(letter);
