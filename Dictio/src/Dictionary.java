@@ -185,4 +185,35 @@ public class Dictionary {
 		return nodeWords;
 	}
 
+	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	public ArrayList<Word> searchWords(String criteria) {
+		ArrayList<Word> words = new ArrayList<Word>();
+		for (LexiNode lexiNode : mWords) {
+			if(criteria.charAt(0) == lexiNode.getLetter()) {
+				ArrayList<Word> nodeWords = searchRecu(lexiNode, Character.toString(lexiNode.getLetter()), criteria.substring(1, criteria.length()));
+				words.addAll(nodeWords);
+			}
+		}
+		return words;
+	}
+
+	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	private ArrayList<Word> searchRecu(LexiNode lexiNode, String currentWord, String criteria) {
+		ArrayList<Word> nodeWords = new ArrayList<Word>();
+		
+		for (LexiNode node : lexiNode.getChildren()) {
+			if(criteria.length() > 0 ? criteria.charAt(0) == node.getLetter() : true)
+				if(node.getDefinition() != null)
+					nodeWords.add(new Word(currentWord + node.getLetter(), node.getDefinition()));
+				else {
+					if(criteria.length() > 0)
+						nodeWords.addAll(searchRecu(node, currentWord + node.getLetter(), criteria.substring(1, criteria.length())));
+					else
+					nodeWords.addAll(getAllWordsRecu(node, currentWord + node.getLetter()));
+				}
+		}
+		return nodeWords;
+	}
+	
+
 }

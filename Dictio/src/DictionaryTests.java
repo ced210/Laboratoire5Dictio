@@ -1,7 +1,6 @@
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-// import org.assertj.*;
 import org.junit.*;
 
 import java.util.ArrayList;
@@ -77,6 +76,34 @@ public class DictionaryTests {
          assertEquals(words.get(1).getDefinition(), expected.get(1).getDefinition());
          assertEquals(words.get(2).getWord(), expected.get(2).getWord());
          assertEquals(words.get(2).getDefinition(), expected.get(2).getDefinition());
+      } catch (Exception e) {
+         e.getMessage();
+      }
+   }
+
+   @Test
+   public void test_searchWords() {
+      try {
+         Dictionary dictionary = new Dictionary();
+         Word word1 = new Word("avion", "un truc qui vole");
+         Word word2 = new Word("aviation", "le dude qui vole");
+         Word word3 = new Word("elephant", "gros truc gris");
+         dictionary.addWord(word1);
+         dictionary.addWord(word2);
+         dictionary.addWord(word3);
+
+         ArrayList<Word> words = dictionary.searchWords("avi");
+
+         ArrayList<Word> expected = new ArrayList<Word>();
+         expected.add(word1);
+         expected.add(word2);
+
+         assertEquals(words.get(0).getWord(), expected.get(0).getWord());
+         assertEquals(words.get(0).getDefinition(), expected.get(0).getDefinition());
+         assertEquals(words.get(1).getWord(), expected.get(1).getWord());
+         assertEquals(words.get(1).getDefinition(), expected.get(1).getDefinition());
+         // assertEquals(words.get(2).getWord(), expected.get(2).getWord());
+         // assertEquals(words.get(2).getDefinition(), expected.get(2).getDefinition());
       } catch (Exception e) {
          e.getMessage();
       }
