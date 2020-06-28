@@ -13,20 +13,22 @@ public class Dictionary {
 	private String mSearchCriteria;
 	private File file;
 
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+
+	//TODO double check
 	/**
 	 * Retourne la liste de mots 
 	 * @return ArrayList<LexiNode>
 	*/
-	public ArrayList<LexiNode> getWords() {
+	public /*@ pure @*/ ArrayList<LexiNode> getWords() {
 		return this.mWords;
 	}
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	
+	//TODO double check
 	/**
 	 * Constructeur de Dictionary,
 	 * initialise la liste de mots
 	*/
-	public Dictionary() {
+	public /*@ pure @*/ Dictionary() {
 		mWords = new ArrayList<>();
 	}
 
