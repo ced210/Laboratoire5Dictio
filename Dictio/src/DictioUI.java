@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.security.InvalidParameterException;
 
 import javax.swing.JButton;
@@ -56,6 +57,11 @@ public class DictioUI {
     	dictionnaryJList.setCellRenderer(new WordCellRenderer());
         listScroller.setPreferredSize(new Dimension(250, 80));
 
+        searchJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+    	searchJList.setLayoutOrientation(JList.VERTICAL);
+    	searchJList.setVisibleRowCount(-1);
+    	searchJList.setCellRenderer(new WordCellRenderer());
+
         labelSearch.setBounds(10, 20, 100, 20);
         btnLoad.setBounds(395, 10, 100, 30);// x axis, y axis, width, height
         btnSave.setBounds(505, 10, 100, 30);
@@ -74,7 +80,7 @@ public class DictioUI {
         frame.add(dictionnaryJList);
         frame.setSize(1000, 400);
 
-        setSearchListData();
+        setDictionaryListData();
         addEventListener();
 
         frame.setLayout(null);// using no layout managers
@@ -82,12 +88,14 @@ public class DictioUI {
         frame.setResizable(false);
     }
 
-    ////TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
+    //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
     /**
      * Ajoute les action lors de l'interaction avec les composantes du menu.
      */
     private void addEventListener() {
-    	dictionnaryJList.addListSelectionListener(new SharedListSelectionHandler());
+        dictionnaryJList.addListSelectionListener(new SharedListSelectionHandler());
+        
+        searchJList.addListSelectionListener(new SharedListSelectionHandler());
 
         btnLoad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) { loadFile(); }
@@ -100,17 +108,38 @@ public class DictioUI {
         btnAddEdit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) { addEditWord(); }
         });
+
+        txfSearch.addKeyListener(new KeyListener() {
+            public void keyPressed(KeyEvent e) {
+                String criteria = txfSearch.getText();
+                if (Character.isLetter(e.getKeyChar())){
+                    criteria += e.getKeyChar();
+                }
+                setSearchListData(criteria);
+            }
+        
+            public void keyReleased(KeyEvent e) { /* ... */ }
+        
+            public void keyTyped(KeyEvent e) { /* ... */ }
+        });
     }
 
     ////TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
     /**
      * Affecte la liste de donnée des mots correspondant à la recherche.
      */
-    private void setSearchListData(){
+    private void setDictionaryListData(){
         var al = dictionary.getAllWords();
         Word[] arr = new Word[al.size()]; 
         arr = al.toArray(arr);
         dictionnaryJList.setListData(arr);
+    }
+
+    private void setSearchListData(String criteria){
+        var al = dictionary.searchWords(criteria);
+        Word[] arr = new Word[al.size()]; 
+        arr = al.toArray(arr);
+        searchJList.setListData(arr);
     }
 
     //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
@@ -126,7 +155,7 @@ public class DictioUI {
             if (fileDialog.getFile() != null) {
                 dictionary.loadFile(fileDialog.getFile());
             }
-            setSearchListData();
+            setDictionaryListData();
         } catch (Exception e) {
             showErrorDialog("Erreur lors de l'ouverture du fichier");
         }
@@ -156,7 +185,7 @@ public class DictioUI {
             if(txfDescription.getText() == null)
 			    throw new InvalidParameterException("Definition object should not be null");
             dictionary.addWord(new Word(txfSearch.getText(), txfDescription.getText()));
-            setSearchListData();
+            setDictionaryListData();
         } catch (Exception e) {
             showErrorDialog(e.getMessage());
         }
