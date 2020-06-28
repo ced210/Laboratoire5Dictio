@@ -6,16 +6,17 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//TODO Javadoc, reponsabilite de classe, collaborateurs, 
+//TODO Javadoc, reponsabilite de classe, collaborateurs,
 public class Dictionary {
 
 	private ArrayList<LexiNode> mWords;
 	private String mSearchCriteria;
 	private File file;
 
+
 	//TODO double check
 	/**
-	 * Retourne la liste de mots 
+	 * Retourne la liste de mots
 	 * @return ArrayList<LexiNode>
 	 * @see LexiNode
 	*/
@@ -28,7 +29,7 @@ public class Dictionary {
 	 * Constructeur de Dictionary,
 	 * initialise la liste de mots
 	*/
-	public Dictionary() {
+	public /*@ pure @*/ Dictionary() {
 		mWords = new ArrayList<>();
 	}
 
@@ -72,7 +73,7 @@ public class Dictionary {
 
 	//TODO double check
 	/**
-	 * Sauvergarde tout les mots et définitions de l'arbre sous le for at spéficifier 
+	 * Sauvergarde tout les mots et définitions de l'arbre sous le for at spéficifier
 	 * @throws IOException s'il n'y a pas de fichier précédement sélectionné
 	 * @see Word
 	*/
@@ -82,7 +83,7 @@ public class Dictionary {
 			for (Word word : getAllWords()) {
 				String s = word.getWord() + " & "+ word.getDefinition() + "\n";
 				System.out.println(s);
-				printWriter.write(s);				
+				printWriter.write(s);
 			}
 			printWriter.close();
 		} catch(Exception e) {
@@ -116,16 +117,16 @@ public class Dictionary {
 		}
 		for (LexiNode lexiNode : mWords) {
 			if(lexiNode.getLetter() == word.getWord().charAt(0)) {
-				Word nextWord = new Word(word.getWord().substring(1, word.getWord().length()), word.getDefinition()); 
+				Word nextWord = new Word(word.getWord().substring(1, word.getWord().length()), word.getDefinition());
 				lexiNode.mapWord(nextWord);
 			}
 		}
 	}
-	
+
 	//TODO double check
 	/**
 	 * Retourne tous les mots de l'arbre sous une instance de la classe Word
-	 * 
+	 *
 	 * @return words (une list d'objet de la classe Word)
 	 * @see Word
 	 * @see LexiNode
@@ -158,7 +159,7 @@ public class Dictionary {
 		return words;
 	}
 
-	
-	
+
+
 
 }
