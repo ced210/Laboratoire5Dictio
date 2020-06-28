@@ -16,7 +16,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-//TODO Javadoc, reponsabilite de classe, collaborateurs, 
+//TODO double check
+/**
+ * Classe DictioUI contenant les differentes composantes de JSwing pour l'interface 
+*/
 public class DictioUI {
     JFrame frame;
     JButton btnLoad;
@@ -30,13 +33,17 @@ public class DictioUI {
     JScrollPane listScroller;
     Dictionary dictionary;
 
-    //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
+    //TODO double check 
+    /**
+	 * Constructeur de la classe DictioUI
+     * instancie tous les composantes de l'interface
+	*/
     public DictioUI() {
         dictionary = new Dictionary();
         frame = new JFrame("Dictio");
-        btnLoad = new JButton("Charger");// creating instance of JButton
-        btnSave = new JButton("Enregistrer");// creating instance of JButton
-        btnAddEdit = new JButton("Ajouter / Modifier");// creating instance of JButton
+        btnLoad = new JButton("Charger");
+        btnSave = new JButton("Enregistrer");
+        btnAddEdit = new JButton("Ajouter / Modifier");
         txfSearch = new JTextField();
         txfDescription = new JTextField();
         labelSearch = new JLabel("Search");
@@ -45,16 +52,17 @@ public class DictioUI {
         listScroller = new JScrollPane(dictionnaryJList);
     }
 
-    ////TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
+    ////TODO double check 
     /**
-     * Initialise la position et les paramètres des composantes du menu.
+     * Initialise la position et les paramètres des composantes de l'interface.
      */
     public void display() {
 
     	dictionnaryJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
     	dictionnaryJList.setLayoutOrientation(JList.VERTICAL);
     	dictionnaryJList.setVisibleRowCount(-1);
-    	dictionnaryJList.setCellRenderer(new WordCellRenderer());
+        dictionnaryJList.setCellRenderer(new WordCellRenderer());
+        
         listScroller.setPreferredSize(new Dimension(250, 80));
 
         searchJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -62,15 +70,17 @@ public class DictioUI {
     	searchJList.setVisibleRowCount(-1);
     	searchJList.setCellRenderer(new WordCellRenderer());
 
+        // x axis, y axis, width, height
         labelSearch.setBounds(10, 20, 100, 20);
-        btnLoad.setBounds(395, 10, 100, 30);// x axis, y axis, width, height
+        btnLoad.setBounds(395, 10, 100, 30);
         btnSave.setBounds(505, 10, 100, 30);
         btnAddEdit.setBounds(300, 200, 200, 50);
         txfSearch.setBounds(10, 50, 300, 30);
         searchJList.setBounds(10, 80, 300, 90);
         dictionnaryJList.setBounds(710,50,265,120);
         txfDescription.setBounds(310, 50, 400, 120);
-        frame.add(btnLoad);// adding button in Jframerame
+
+        frame.add(btnLoad);
         frame.add(btnSave);
         frame.add(btnAddEdit);
         frame.add(txfSearch);
@@ -78,19 +88,19 @@ public class DictioUI {
         frame.add(txfDescription);
         frame.add(searchJList);
         frame.add(dictionnaryJList);
-        frame.setSize(1000, 400);
-
+        
         setDictionaryListData();
         addEventListener();
-
-        frame.setLayout(null);// using no layout managers
-        frame.setVisible(true);// making the frame visible
+        
+        frame.setSize(1000, 400);
+        frame.setLayout(null);
+        frame.setVisible(true);
         frame.setResizable(false);
     }
 
-    //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
+    //TODO double check 
     /**
-     * Ajoute les action lors de l'interaction avec les composantes du menu.
+     * Ajoute les actions des interactions avec les composantes du menu.
      */
     private void addEventListener() {
         dictionnaryJList.addListSelectionListener(new SharedListSelectionHandler());
@@ -124,9 +134,9 @@ public class DictioUI {
         });
     }
 
-    ////TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
+    //TODO double check 
     /**
-     * Affecte la liste de donnée des mots correspondant à la recherche.
+     * Affecte à la liste de données, tous les mots trouvés du dictionnaire.
      */
     private void setDictionaryListData(){
         var al = dictionary.getAllWords();
@@ -135,6 +145,10 @@ public class DictioUI {
         dictionnaryJList.setListData(arr);
     }
 
+    //TODO double check 
+    /**
+     * Affecte à la liste de données, tous les mots correspondant à la recherche.
+     */
     private void setSearchListData(String criteria){
         var al = dictionary.searchWords(criteria);
         Word[] arr = new Word[al.size()]; 
@@ -142,7 +156,7 @@ public class DictioUI {
         searchJList.setListData(arr);
     }
 
-    //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
+    //TODO double check 
     /**
      * Ouvre l'explorateur de fichier pour permettre de sélectionner un fichier à ouvrir.
      */
@@ -162,7 +176,7 @@ public class DictioUI {
         }
     }
 
-    //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
+    //TODO double check 
     /*
      * Appel la fonction de sauvegarde de fichier du Dictionnaire.
      */
@@ -174,10 +188,10 @@ public class DictioUI {
         }
     }
 
-    //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
+    //TODO double check 
     /*
-     * Ajoute ou Modifie un mot selon le mot inscrit dans la boite de recherche
-     * et les mots instrint dans la boite de définition
+     * Ajoute ou Modifie un mot selon le mot inscrit dans la boîte de recherche
+     * et les mots inscrit dans la boite de définition
      */
     private void addEditWord() {
         try {
