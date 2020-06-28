@@ -24,4 +24,20 @@ public class LexiNodeTests {
       assertEquals(lexiNode.getLetter(), 'a');
       assertEquals(lexiNode.getChildren(), new ArrayList<LexiNode>());
    }
+
+   @Test
+   public void test_mapWord() {
+      LexiNode lexiNode = new LexiNode('m');
+      Word word = new Word("ot", "contient des lettres");
+
+      //Act
+      lexiNode.mapWord(word);
+
+      LexiNode expected = new LexiNode('m');
+      LexiNode oNode = expected.addChild('o');
+      LexiNode tNode = oNode.addChild('t');
+      tNode.setDefinition("contient des lettres");
+      assertEquals(lexiNode.getLetter(), expected.getLetter());
+      assertEquals(lexiNode.getChildren(), expected.getChildren());
+   }
 }
