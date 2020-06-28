@@ -49,8 +49,12 @@ public class Dictionary {
 			while (myReader.hasNextLine()) {
 				String data = myReader.nextLine();
 				System.out.println(data);
-				String[] s = data.split(" & ");
-				addWord(new Word(s[0], s[1]));
+				try {
+					String[] s = data.split(" & ");
+					addWord(new Word(s[0], s[1]));
+				} catch (Exception e) {
+					//TODO: handle exception
+				}
 			}
 			myReader.close();
 		} catch(FileNotFoundException e) {
@@ -158,7 +162,7 @@ public class Dictionary {
 	public ArrayList<Word> searchWords(String criteria) {
 		ArrayList<Word> words = new ArrayList<Word>();
 		for (LexiNode lexiNode : mWords) {
-			if(criteria.charAt(0) == lexiNode.getLetter()) {
+			if(Character.toLowerCase(criteria.charAt(0)) == Character.toLowerCase(lexiNode.getLetter())) {
 				ArrayList<Word> nodeWords = searchRecu(lexiNode, Character.toString(lexiNode.getLetter()), criteria.substring(1, criteria.length()));
 				words.addAll(nodeWords);
 			}
@@ -169,9 +173,8 @@ public class Dictionary {
 	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	private ArrayList<Word> searchRecu(LexiNode lexiNode, String currentWord, String criteria) {
 		ArrayList<Word> nodeWords = new ArrayList<Word>();
-		
 		for (LexiNode node : lexiNode.getChildren()) {
-			if(criteria.length() > 0 ? criteria.charAt(0) == node.getLetter() : true)
+			if(criteria.length() > 0 ? Character.toLowerCase(criteria.charAt(0)) == Character.toLowerCase(node.getLetter()) : true)
 				if(node.getDefinition() != null)
 					nodeWords.add(new Word(currentWord + node.getLetter(), node.getDefinition()));
 				else {
