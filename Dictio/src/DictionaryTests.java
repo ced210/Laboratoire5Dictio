@@ -159,7 +159,7 @@ public class DictionaryTests {
       try {
          Dictionary dictionary = new Dictionary();
          dictionary.loadFile("testFile.txt");
-         dictionary.saveFile();
+         dictionary.saveFile("testFile.txt");
          
          // assertTrue("The files differ!", FileUtils.contentEquals(new File("testFile.txt"), new File("testFile.txt")));
       } catch (Exception e) {

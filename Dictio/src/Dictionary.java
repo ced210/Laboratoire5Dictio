@@ -77,9 +77,12 @@ public class Dictionary {
 	 * @throws IOException s'il n'y a pas de fichier précédement sélectionné
 	 * @see Word
 	*/
-	public void saveFile() throws IOException {
+	public void saveFile(String path) throws IOException {
 		try {
-			PrintWriter printWriter = new PrintWriter(this.file);
+			File saveFile = new File(path);
+			if(!saveFile.exists())
+				saveFile.createNewFile();
+			PrintWriter printWriter = new PrintWriter(saveFile);
 			for (Word word : getAllWords()) {
 				String s = word.getWord() + " & "+ word.getDefinition() + "\n";
 				System.out.println(s);

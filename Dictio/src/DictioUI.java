@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.*;
 import java.security.InvalidParameterException;
 
@@ -188,7 +189,15 @@ public class DictioUI {
      */
     private void saveFile() {
         try {
-            dictionary.saveFile();
+            FileDialog fileDialog = new FileDialog(new JFrame(), "Selectionner un fichier a enregistrer", FileDialog.SAVE);
+            fileDialog.setMultipleMode(false);
+            fileDialog.setVisible(true);
+            System.out.println(fileDialog.getFiles()[0].getAbsolutePath());
+            if (fileDialog.getFile() != null) {
+                dictionary.saveFile(fileDialog.getFile());
+            }
+        } catch (IOException ioe) {
+            showErrorDialog(ioe.getMessage());
         } catch (Exception e) {
             showErrorDialog(e.getMessage());
         }
