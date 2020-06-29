@@ -32,8 +32,8 @@ public class DictioUI {
     JLabel labelSearch;
     JList<Word> searchJList;
     JList<Word> dictionnaryJList;
-    JScrollPane listScroller;
     Dictionary dictionary;
+    JScrollPane scrollPane;
 
     //TODO double check 
     /**
@@ -51,7 +51,7 @@ public class DictioUI {
         labelSearch = new JLabel("Search");
         searchJList = new JList<Word>();
         dictionnaryJList = new JList<Word>();
-        listScroller = new JScrollPane(dictionnaryJList);
+        scrollPane = new JScrollPane(dictionnaryJList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     }
 
     ////TODO double check 
@@ -65,7 +65,7 @@ public class DictioUI {
     	dictionnaryJList.setVisibleRowCount(-1);
         dictionnaryJList.setCellRenderer(new WordCellRenderer());
         
-        listScroller.setPreferredSize(new Dimension(250, 80));
+        scrollPane.setPreferredSize(new Dimension(250, 80));
 
         searchJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
     	searchJList.setLayoutOrientation(JList.VERTICAL);
@@ -92,6 +92,7 @@ public class DictioUI {
         frame.add(txfDescription);
         frame.add(searchJList);
         frame.add(dictionnaryJList);
+        dictionnaryJList.add(scrollPane);
         
         setDictionaryListData();
         addEventListener();
