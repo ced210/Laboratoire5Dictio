@@ -21,6 +21,8 @@ import javax.swing.event.ListSelectionListener;
 //TODO double check
 /**
  * Classe DictioUI contenant les differentes composantes de JSwing pour l'interface 
+ * Contient une methode pour l'ajout des actionListener 
+ * Contient les methodes à faire lorsque l'actionListener est appelé
 */
 public class DictioUI {
     JFrame frame;
