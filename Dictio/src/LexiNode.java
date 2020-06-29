@@ -67,9 +67,10 @@ public class LexiNode {
 		return node;
 	}
 
-	//TODO move in LexiNode, node params => this
+	
 	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
 	/**
+	 * Complexité O(K^n)
 	 * Ajoute une lettre au enfant d'un LexiNode récurcivement
 	 * @param word Le reste du Mot à ajouter
 	 * @param node le LexiNode à ajouter la prochaine lettre
@@ -91,7 +92,10 @@ public class LexiNode {
 		}
 	}
 
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	//TODO double check
+	/**
+	 * Complexité O(n*Log(n))
+	*/
 	public ArrayList<Word> getAllWordsRecu(String currentWord) {
 		ArrayList<Word> nodeWords = new ArrayList<Word>();
 		for (LexiNode node : this.getChildren()) {
@@ -103,7 +107,10 @@ public class LexiNode {
 		return nodeWords;
 	}
 
-	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
+	//TODO double check
+	/**
+	 * Complexité O(Log(n))
+	*/
 	public ArrayList<Word> searchRecu(String currentWord, String criteria) {
 		ArrayList<Word> nodeWords = new ArrayList<Word>();
 		for (LexiNode node : this.getChildren()) {
