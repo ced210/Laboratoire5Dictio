@@ -18,7 +18,7 @@ public class DictionaryTests {
 
          //Assert
          ArrayList<Word> words = dictionary.getAllWords();
-         assertEquals(words.get(0).getWord(), newWord.getWord());
+         assertEquals(words.get(0).getLetters(), newWord.getLetters());
          assertEquals(words.get(0).getDefinition(), newWord.getDefinition());
       } catch (Exception e) {
          e.getMessage();
@@ -42,9 +42,9 @@ public class DictionaryTests {
          ArrayList<Word> expected = new ArrayList<Word>();
          expected.add(word1);
          expected.add(word2);
-         assertEquals(words.get(0).getWord(), expected.get(0).getWord());
+         assertEquals(words.get(0).getLetters(), expected.get(0).getLetters());
          assertEquals(words.get(0).getDefinition(), expected.get(0).getDefinition());
-         assertEquals(words.get(1).getWord(), expected.get(1).getWord());
+         assertEquals(words.get(1).getLetters(), expected.get(1).getLetters());
          assertEquals(words.get(1).getDefinition(), expected.get(1).getDefinition());
       } catch (Exception e) {
          e.getMessage();
@@ -71,11 +71,11 @@ public class DictionaryTests {
          expected.add(word1);
          expected.add(word2);
          expected.add(word3);
-         assertEquals(words.get(0).getWord(), expected.get(0).getWord());
+         assertEquals(words.get(0).getLetters(), expected.get(0).getLetters());
          assertEquals(words.get(0).getDefinition(), expected.get(0).getDefinition());
-         assertEquals(words.get(1).getWord(), expected.get(1).getWord());
+         assertEquals(words.get(1).getLetters(), expected.get(1).getLetters());
          assertEquals(words.get(1).getDefinition(), expected.get(1).getDefinition());
-         assertEquals(words.get(2).getWord(), expected.get(2).getWord());
+         assertEquals(words.get(2).getLetters(), expected.get(2).getLetters());
          assertEquals(words.get(2).getDefinition(), expected.get(2).getDefinition());
       } catch (Exception e) {
          e.getMessage();
@@ -102,11 +102,11 @@ public class DictionaryTests {
          expected.add(word1);
          expected.add(word2);
          expected.add(word3);
-         assertEquals(words.get(0).getWord(), expected.get(0).getWord());
+         assertEquals(words.get(0).getLetters(), expected.get(0).getLetters());
          assertEquals(words.get(0).getDefinition(), expected.get(0).getDefinition());
-         assertEquals(words.get(1).getWord(), expected.get(1).getWord());
+         assertEquals(words.get(1).getLetters(), expected.get(1).getLetters());
          assertEquals(words.get(1).getDefinition(), expected.get(1).getDefinition());
-         assertEquals(words.get(2).getWord(), expected.get(2).getWord());
+         assertEquals(words.get(2).getLetters(), expected.get(2).getLetters());
          assertEquals(words.get(2).getDefinition(), expected.get(2).getDefinition());
       } catch (Exception e) {
          e.getMessage();
@@ -133,9 +133,9 @@ public class DictionaryTests {
          expected.add(word1);
          expected.add(word2);
 
-         assertEquals(words.get(0).getWord(), expected.get(0).getWord());
+         assertEquals(words.get(0).getLetters(), expected.get(0).getLetters());
          assertEquals(words.get(0).getDefinition(), expected.get(0).getDefinition());
-         assertEquals(words.get(1).getWord(), expected.get(1).getWord());
+         assertEquals(words.get(1).getLetters(), expected.get(1).getLetters());
          assertEquals(words.get(1).getDefinition(), expected.get(1).getDefinition());
       } catch (Exception e) {
          e.getMessage();

@@ -257,7 +257,7 @@ public class DictioUI {
         }
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             Word word = (Word)value;
-            setText(word.getWord());
+            setText(word.getLetters());
 
             Color background;
             Color foreground;

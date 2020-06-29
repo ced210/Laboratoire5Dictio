@@ -7,22 +7,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 //TODO Javadoc, reponsabilite de classe, collaborateurs,
+/**
+ * @collaborateurs: Word, LexiNode, File
+ */
 public class Dictionary {
 
-	private ArrayList<LexiNode> mWords;
-	private String mSearchCriteria;
-	private File file;
-
-
-	//TODO double check
-	/**
-	 * Retourne la liste de mots
-	 * @return ArrayList<LexiNode>
-	 * @see LexiNode
-	*/
-	public /*@ pure @*/ ArrayList<LexiNode> getWords() {
-		return this.mWords;
-	}
+	private ArrayList<LexiNode> alphabet;
 
 	//TODO double check
 	/**
@@ -30,7 +20,7 @@ public class Dictionary {
 	 * initialise la liste de mots
 	*/
 	public /*@ pure @*/ Dictionary() {
-		mWords = new ArrayList<>();
+		alphabet = new ArrayList<>();
 	}
 
 	//TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient
@@ -44,19 +34,19 @@ public class Dictionary {
 	*/
 	public void loadFile(String path) throws FileNotFoundException, IOException {
 		try {
-			file = new File(path);
-			if(!file.exists()) {
-				file.createNewFile();
+			File loadFile = new File(path);
+			if(!loadFile.exists()) {
+				loadFile.createNewFile();
 			}
-			Scanner myReader = new Scanner(file);
+			Scanner myReader = new Scanner(loadFile);
 			while (myReader.hasNextLine()) {
 				String data = myReader.nextLine();
 				System.out.println(data);
 				try {
 					String[] s = data.split(" & ");
 					addWord(new Word(s[0], s[1]));
-				} catch (Exception e) {
-					//TODO: handle exception
+				} catch (Exception e) { 
+					//N'enregistre pas le nom.
 				}
 			}
 			myReader.close();
@@ -84,7 +74,7 @@ public class Dictionary {
 				saveFile.createNewFile();
 			PrintWriter printWriter = new PrintWriter(saveFile);
 			for (Word word : getAllWords()) {
-				String s = word.getWord() + " & "+ word.getDefinition() + "\n";
+				String s = word.getLetters() + " & "+ word.getDefinition() + "\n";
 				System.out.println(s);
 				printWriter.write(s);
 			}
@@ -111,16 +101,16 @@ public class Dictionary {
 	public void addWord(Word word) {
 		if(word == null)
 			throw new InvalidParameterException("Word object should not be null");
-		if(word.getWord() == null)
+		if(word.getLetters() == null)
 			throw new InvalidParameterException("word should not be null");
 		if(word.getDefinition() == null)
 			throw new InvalidParameterException("Definition should not be null");
-		if(!mWords.stream().anyMatch(n -> n.getLetter() == word.getWord().charAt(0))) {
-			mWords.add(new LexiNode(word.getWord().charAt(0)));
+		if(!alphabet.stream().anyMatch(n -> n.getLetter() == word.getLetters().charAt(0))) {
+			alphabet.add(new LexiNode(word.getLetters().charAt(0)));
 		}
-		for (LexiNode lexiNode : mWords) {
-			if(lexiNode.getLetter() == word.getWord().charAt(0)) {
-				Word nextWord = new Word(word.getWord().substring(1, word.getWord().length()), word.getDefinition());
+		for (LexiNode lexiNode : alphabet) {
+			if(lexiNode.getLetter() == word.getLetters().charAt(0)) {
+				Word nextWord = new Word(word.getLetters().substring(1, word.getLetters().length()), word.getDefinition());
 				lexiNode.mapWord(nextWord);
 			}
 		}
@@ -136,7 +126,7 @@ public class Dictionary {
 	*/
 	public ArrayList<Word> getAllWords() {
 		ArrayList<Word> words = new ArrayList<Word>();
-		for (LexiNode lexiNode : mWords) {
+		for (LexiNode lexiNode : alphabet) {
 			ArrayList<Word> nodeWords = lexiNode.getAllWordsRecu(Character.toString(lexiNode.getLetter()));
 			words.addAll(nodeWords);
 		}
@@ -153,16 +143,12 @@ public class Dictionary {
 	*/
 	public ArrayList<Word> searchWords(String criteria) {
 		ArrayList<Word> words = new ArrayList<Word>();
-		for (LexiNode lexiNode : mWords) {
+		for (LexiNode lexiNode : alphabet) {
 			if(Character.toLowerCase(criteria.charAt(0)) == Character.toLowerCase(lexiNode.getLetter())) {
-				ArrayList<Word> nodeWords = lexiNode.searchRecu(Character.toString(lexiNode.getLetter()), criteria.substring(1, criteria.length()));
+				ArrayList<Word> nodeWords = lexiNode.searchWordRecursive(Character.toString(lexiNode.getLetter()), criteria.substring(1, criteria.length()));
 				words.addAll(nodeWords);
 			}
 		}
 		return words;
 	}
-
-
-
-
 }

@@ -76,14 +76,14 @@ public class LexiNode {
 	 * @param node le LexiNode à ajouter la prochaine lettre
 	 */
 	public void mapWord(Word word) {
-		char currentLetter = word.getWord().charAt(0);
+		char currentLetter = word.getLetters().charAt(0);
 		if(!this.getChildren().stream().anyMatch(n -> n.getLetter() == currentLetter)) {
 			this.addChild(currentLetter);
 		}
 		for (LexiNode lexiNode : this.getChildren()) {
 			if(lexiNode.getLetter() == currentLetter) {
-				if(word.getWord().length() > 1) {
-					Word nextWord = new Word(word.getWord().substring(1, word.getWord().length()), word.getDefinition());
+				if(word.getLetters().length() > 1) {
+					Word nextWord = new Word(word.getLetters().substring(1, word.getLetters().length()), word.getDefinition());
 					lexiNode.mapWord(nextWord);
 				}
 				else
@@ -111,7 +111,7 @@ public class LexiNode {
 	/**
 	 * Complexité O(Log(n))
 	*/
-	public ArrayList<Word> searchRecu(String currentWord, String criteria) {
+	public ArrayList<Word> searchWordRecursive(String currentWord, String criteria) {
 		ArrayList<Word> nodeWords = new ArrayList<Word>();
 		for (LexiNode node : this.getChildren()) {
 			if(criteria.length() > 0 ? Character.toLowerCase(criteria.charAt(0)) == Character.toLowerCase(node.getLetter()) : true)
@@ -119,7 +119,7 @@ public class LexiNode {
 					nodeWords.add(new Word(currentWord + node.getLetter(), node.getDefinition()));
 				else {
 					if(criteria.length() > 0)
-						nodeWords.addAll(node.searchRecu(currentWord + node.getLetter(), criteria.substring(1, criteria.length())));
+						nodeWords.addAll(node.searchWordRecursive(currentWord + node.getLetter(), criteria.substring(1, criteria.length())));
 					else
 					nodeWords.addAll(node.getAllWordsRecu(currentWord + node.getLetter()));
 				}
