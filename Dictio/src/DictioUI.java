@@ -27,7 +27,9 @@ public class DictioUI {
     JLabel labelSearch;
     JList<Word> searchJList;
     JList<Word> dictionnaryJList;
-    JScrollPane listScroller;
+    JScrollPane dictionnaryListScroller;
+    JScrollPane searchListScroller;
+    JScrollPane descriptionListScroller;
     Dictionary dictionary;
 
     //TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
@@ -42,7 +44,9 @@ public class DictioUI {
         labelSearch = new JLabel("Search");
         searchJList = new JList<Word>();
         dictionnaryJList = new JList<Word>();
-        listScroller = new JScrollPane(dictionnaryJList);
+        searchListScroller = new JScrollPane(searchJList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        dictionnaryListScroller = new JScrollPane(dictionnaryJList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        descriptionListScroller = new JScrollPane(txfDescription, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
     ////TODO leurs préconditions/postconditions, leurs paramètres, valeurs de retour et la raison des exceptions qu’ils envoient 
@@ -55,36 +59,40 @@ public class DictioUI {
     	dictionnaryJList.setLayoutOrientation(JList.VERTICAL);
     	dictionnaryJList.setVisibleRowCount(-1);
     	dictionnaryJList.setCellRenderer(new WordCellRenderer());
-        listScroller.setPreferredSize(new Dimension(250, 80));
-
+        
         searchJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
     	searchJList.setLayoutOrientation(JList.VERTICAL);
     	searchJList.setVisibleRowCount(-1);
     	searchJList.setCellRenderer(new WordCellRenderer());
 
+    	descriptionListScroller.setBounds(310, 50, 400, 120);
+    	searchListScroller.setBounds(10, 80, 300, 90);
+    	dictionnaryListScroller.setBounds(710,50,265,120);
         labelSearch.setBounds(10, 20, 100, 20);
-        btnLoad.setBounds(395, 10, 100, 30);// x axis, y axis, width, height
+        btnLoad.setBounds(395, 10, 100, 30);
         btnSave.setBounds(505, 10, 100, 30);
         btnAddEdit.setBounds(300, 200, 200, 50);
         txfSearch.setBounds(10, 50, 300, 30);
         searchJList.setBounds(10, 80, 300, 90);
+        
         dictionnaryJList.setBounds(710,50,265,120);
         txfDescription.setBounds(310, 50, 400, 120);
-        frame.add(btnLoad);// adding button in Jframerame
+        frame.add(btnLoad);
         frame.add(btnSave);
         frame.add(btnAddEdit);
         frame.add(txfSearch);
         frame.add(labelSearch);
-        frame.add(txfDescription);
-        frame.add(searchJList);
-        frame.add(dictionnaryJList);
+        frame.add(descriptionListScroller);
+        frame.add(searchListScroller);
         frame.setSize(1000, 400);
+        frame.add(dictionnaryListScroller);
+     
 
         setDictionaryListData();
         addEventListener();
 
-        frame.setLayout(null);// using no layout managers
-        frame.setVisible(true);// making the frame visible
+        frame.setLayout(null);
+        frame.setVisible(true);
         frame.setResizable(false);
     }
 
