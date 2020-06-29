@@ -120,4 +120,18 @@ public class LexiNode {
 		return nodeWords;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o == null || getClass() != o.getClass()) return false;
+	
+		LexiNode lexiNode = (LexiNode) o;
+
+		boolean isLetterSame = lexiNode.getLetter() == this.mLetter;
+		boolean isDefinitionSame = lexiNode.getDefinition() == this.mDefinition;
+		boolean isChildrenSame = lexiNode.getChildren() == this.children;
+		return isLetterSame && isDefinitionSame && isChildrenSame;
+	}
+
 }

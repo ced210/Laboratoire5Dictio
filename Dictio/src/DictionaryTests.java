@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class DictionaryTests {
 
    @Test
-   public void test_addWord() {
+   public void test_addWord_shouldAddWordIntoDictionaryWords() {
       try {
          //Arrange
          Dictionary dictionary = new Dictionary();
@@ -26,7 +26,7 @@ public class DictionaryTests {
    }
 
    @Test
-   public void test_addWord2() {
+   public void test_addWord2_shouldAddAviateurIntoTheSameTreeAsAvion() {
       try {
          //Arrange
          Dictionary dictionary = new Dictionary();
@@ -52,7 +52,7 @@ public class DictionaryTests {
    }
 
    @Test
-   public void test_addWord3() {
+   public void test_addWord3_shouldAddElephantIntoNewTree() {
       try {
          //Arrange
          Dictionary dictionary = new Dictionary();
@@ -83,7 +83,7 @@ public class DictionaryTests {
    }
 
    @Test
-   public void test_getAllWords() {
+   public void test_getAllWords_shouldReturnAllExistingWordsFromDictionary() {
       try {
          //Arrange
          Dictionary dictionary = new Dictionary();
@@ -114,7 +114,7 @@ public class DictionaryTests {
    }
 
    @Test
-   public void test_searchWords() {
+   public void test_searchWords_shouldReturnAllWordsContainingTheSearchCriteria() {
       try {
          //Arrange
          Dictionary dictionary = new Dictionary();
@@ -143,7 +143,7 @@ public class DictionaryTests {
    }
 
    @Test
-   public void test_loadFile() {
+   public void test_loadFile_shouldLoadSelectedFile() {
       try {
          Dictionary dictionary = new Dictionary();
          dictionary.loadFile("testFile.txt");
@@ -155,11 +155,11 @@ public class DictionaryTests {
    }
 
    @Test
-   public void test_saveFile() {
+   public void test_saveFile_shouldSaveUpadatedFile() {
       try {
          Dictionary dictionary = new Dictionary();
          dictionary.loadFile("testFile.txt");
-         dictionary.saveFile();
+         dictionary.saveFile("testFile.txt");
          
          // assertTrue("The files differ!", FileUtils.contentEquals(new File("testFile.txt"), new File("testFile.txt")));
       } catch (Exception e) {
