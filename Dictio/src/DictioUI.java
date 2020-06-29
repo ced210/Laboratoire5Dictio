@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
@@ -23,7 +24,7 @@ public class DictioUI {
     JButton btnSave;
     JButton btnAddEdit;
     JTextField txfSearch;
-    JTextField txfDescription;
+    JTextArea txfDescription;
     JLabel labelSearch;
     JList<Word> searchJList;
     JList<Word> dictionnaryJList;
@@ -38,7 +39,7 @@ public class DictioUI {
         btnSave = new JButton("Enregistrer");// creating instance of JButton
         btnAddEdit = new JButton("Ajouter / Modifier");// creating instance of JButton
         txfSearch = new JTextField();
-        txfDescription = new JTextField();
+        txfDescription = new JTextArea();
         labelSearch = new JLabel("Search");
         searchJList = new JList<Word>();
         dictionnaryJList = new JList<Word>();
@@ -54,13 +55,17 @@ public class DictioUI {
     	dictionnaryJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
     	dictionnaryJList.setLayoutOrientation(JList.VERTICAL);
     	dictionnaryJList.setVisibleRowCount(-1);
-    	dictionnaryJList.setCellRenderer(new WordCellRenderer());
+        dictionnaryJList.setCellRenderer(new WordCellRenderer());
+        listScroller.setViewportView(dictionnaryJList);
         listScroller.setPreferredSize(new Dimension(250, 80));
 
         searchJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
     	searchJList.setLayoutOrientation(JList.VERTICAL);
     	searchJList.setVisibleRowCount(-1);
     	searchJList.setCellRenderer(new WordCellRenderer());
+
+        txfDescription.setLineWrap(true);
+        txfDescription.setWrapStyleWord(true);
 
         labelSearch.setBounds(10, 20, 100, 20);
         btnLoad.setBounds(395, 10, 100, 30);// x axis, y axis, width, height
@@ -110,23 +115,18 @@ public class DictioUI {
         });
 
         txfSearch.addKeyListener(new KeyListener() {
-            public void keyPressed(KeyEvent keyEvent) {
+            public void keyPressed(KeyEvent keyEvent) { }
+        
+            public void keyReleased(KeyEvent keyEvent) { 
                 try {
                     String criteria = txfSearch.getText().toString();
-                    // if(!criteria.matches("^[a-zA-Z]+$"))
-                    //     throw new Exception("Please enter a letter");
-                    if (Character.isLetter(keyEvent.getKeyChar())){
-                        criteria += keyEvent.getKeyChar();
-                    }
-                    setSearchListData(criteria);
+                    if(criteria != null) setSearchListData(criteria);
                 }
                 catch(Exception e) {
                     txfSearch.setText("");
                     showErrorDialog(e.getMessage());
                 }
-            }
-        
-            public void keyReleased(KeyEvent e) { /* ... */ }
+             }
         
             public void keyTyped(KeyEvent e) { /* ... */ }
         });
