@@ -11,7 +11,7 @@ Présentation des composants graphiques 3
 * ## CHECK ##  Nouvelle définition : un mot nouvellement définit est correctement inséré au dictionnaire lorsqu’on on appuie sur le bouton « ajouter/modifier »
 TOTAL FONCTIONNEMENT 20
 
-* ScrollBar
+* ## CHECK ## ScrollBar
 *  ## CHECK ## Wrap Definition (muiltiline)
 
 Conception de Dictio Pond. Note Commentaire

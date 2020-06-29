@@ -32,12 +32,9 @@ public class DictioUI {
     JLabel labelSearch;
     JList<Word> searchJList;
     JList<Word> dictionnaryJList;
-<<<<<<< HEAD
     JScrollPane dictionnaryListScroller;
     JScrollPane searchListScroller;
     JScrollPane descriptionListScroller;
-=======
->>>>>>> branch 'master' of https://github.com/ced210/Laboratoire5Dictio.git
     Dictionary dictionary;
     JScrollPane scrollPane;
 
@@ -57,13 +54,9 @@ public class DictioUI {
         labelSearch = new JLabel("Search");
         searchJList = new JList<Word>();
         dictionnaryJList = new JList<Word>();
-<<<<<<< HEAD
         searchListScroller = new JScrollPane(searchJList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         dictionnaryListScroller = new JScrollPane(dictionnaryJList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         descriptionListScroller = new JScrollPane(txfDescription, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-=======
-        scrollPane = new JScrollPane(dictionnaryJList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
->>>>>>> branch 'master' of https://github.com/ced210/Laboratoire5Dictio.git
     }
 
     ////TODO double check 
@@ -75,29 +68,19 @@ public class DictioUI {
     	dictionnaryJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
     	dictionnaryJList.setLayoutOrientation(JList.VERTICAL);
     	dictionnaryJList.setVisibleRowCount(-1);
-<<<<<<< HEAD
     	dictionnaryJList.setCellRenderer(new WordCellRenderer());
         
-=======
-        dictionnaryJList.setCellRenderer(new WordCellRenderer());
-        
-        scrollPane.setPreferredSize(new Dimension(250, 80));
-
->>>>>>> branch 'master' of https://github.com/ced210/Laboratoire5Dictio.git
         searchJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
     	searchJList.setLayoutOrientation(JList.VERTICAL);
     	searchJList.setVisibleRowCount(-1);
     	searchJList.setCellRenderer(new WordCellRenderer());
 
-<<<<<<< HEAD
     	descriptionListScroller.setBounds(310, 50, 400, 120);
     	searchListScroller.setBounds(10, 80, 300, 90);
     	dictionnaryListScroller.setBounds(710,50,265,120);
-=======
         txfDescription.setLineWrap(true);
         txfDescription.setWrapStyleWord(true);
 
->>>>>>> branch 'master' of https://github.com/ced210/Laboratoire5Dictio.git
         labelSearch.setBounds(10, 20, 100, 20);
         btnLoad.setBounds(395, 10, 100, 30);
         btnSave.setBounds(505, 10, 100, 30);
@@ -107,37 +90,19 @@ public class DictioUI {
         
         dictionnaryJList.setBounds(710,50,265,120);
         txfDescription.setBounds(310, 50, 400, 120);
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/ced210/Laboratoire5Dictio.git
         frame.add(btnLoad);
         frame.add(btnSave);
         frame.add(btnAddEdit);
         frame.add(txfSearch);
         frame.add(labelSearch);
-<<<<<<< HEAD
         frame.add(descriptionListScroller);
         frame.add(searchListScroller);
-        frame.setSize(1000, 400);
         frame.add(dictionnaryListScroller);
      
-
-=======
-        frame.add(txfDescription);
-        frame.add(searchJList);
-        frame.add(dictionnaryJList);
-        dictionnaryJList.add(scrollPane);
-        
->>>>>>> branch 'master' of https://github.com/ced210/Laboratoire5Dictio.git
         setDictionaryListData();
         addEventListener();
-<<<<<<< HEAD
-
-=======
         
         frame.setSize(1000, 400);
->>>>>>> branch 'master' of https://github.com/ced210/Laboratoire5Dictio.git
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setResizable(false);
