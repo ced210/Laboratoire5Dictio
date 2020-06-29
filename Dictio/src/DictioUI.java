@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
@@ -26,7 +27,7 @@ public class DictioUI {
     JButton btnSave;
     JButton btnAddEdit;
     JTextField txfSearch;
-    JTextField txfDescription;
+    JTextArea txfDescription;
     JLabel labelSearch;
     JList<Word> searchJList;
     JList<Word> dictionnaryJList;
@@ -45,7 +46,7 @@ public class DictioUI {
         btnSave = new JButton("Enregistrer");
         btnAddEdit = new JButton("Ajouter / Modifier");
         txfSearch = new JTextField();
-        txfDescription = new JTextField();
+        txfDescription = new JTextArea();
         labelSearch = new JLabel("Search");
         searchJList = new JList<Word>();
         dictionnaryJList = new JList<Word>();
@@ -70,7 +71,9 @@ public class DictioUI {
     	searchJList.setVisibleRowCount(-1);
     	searchJList.setCellRenderer(new WordCellRenderer());
 
-        // x axis, y axis, width, height
+        txfDescription.setLineWrap(true);
+        txfDescription.setWrapStyleWord(true);
+
         labelSearch.setBounds(10, 20, 100, 20);
         btnLoad.setBounds(395, 10, 100, 30);
         btnSave.setBounds(505, 10, 100, 30);
@@ -121,23 +124,18 @@ public class DictioUI {
         });
 
         txfSearch.addKeyListener(new KeyListener() {
-            public void keyPressed(KeyEvent keyEvent) {
+            public void keyPressed(KeyEvent keyEvent) { }
+        
+            public void keyReleased(KeyEvent keyEvent) { 
                 try {
                     String criteria = txfSearch.getText().toString();
-                    // if(!criteria.matches("^[a-zA-Z]+$"))
-                    //     throw new Exception("Please enter a letter");
-                    if (Character.isLetter(keyEvent.getKeyChar())){
-                        criteria += keyEvent.getKeyChar();
-                    }
-                    setSearchListData(criteria);
+                    if(criteria != null) setSearchListData(criteria);
                 }
                 catch(Exception e) {
                     txfSearch.setText("");
                     showErrorDialog(e.getMessage());
                 }
-            }
-        
-            public void keyReleased(KeyEvent e) { /* ... */ }
+             }
         
             public void keyTyped(KeyEvent e) { /* ... */ }
         });
